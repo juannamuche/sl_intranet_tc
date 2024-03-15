@@ -1,0 +1,24 @@
+.modal {
+    overflow-y: auto;
+    /* Asegura que el modal siempre tenga scroll vertical */
+}
+
+.disabled-block {
+    pointer-events: none;
+    /* Evita que los elementos sean interactivos */
+    opacity: 0.5;
+    /* Cambia la opacidad para dar la apariencia de deshabilitado */
+}
+.select2-container{
+    width: 100%!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    /* padding de los botones del paginador de datatables */
+     padding: 0em 0em !important;     
+}
+
+.table-responsive{
+    margin-top: 20px;
+    /* espaciado entre el datatables y boton de agregar */
+}
