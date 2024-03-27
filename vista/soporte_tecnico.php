@@ -137,10 +137,13 @@ if (!isset($_SESSION["id_persona"])) {
         <div class="content-wrapper container-fluid">
             <!-- Main content -->
             <header>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
-                    </div>
+            <div class="row mt-2">                 
+                        <div class="col-10">
+                            <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
+                        </div>
+                        <div class="col-2 d-none d-md-block">
+                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona']?></span>
+                        </div>                  
                 </div>
             </header>
 

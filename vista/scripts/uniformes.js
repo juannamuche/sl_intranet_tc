@@ -36,6 +36,8 @@ function init() {
     $('#divdatos').hide();
     $('#btnatras').hide();
     $('#btnguardar').hide();
+
+    mostrar_uniformes_persona();
 }
 
 function select_medida(tipoMedida) {
@@ -45,39 +47,39 @@ function select_medida(tipoMedida) {
         data: { "tipomedida": tipoMedida },
         dataType: "json",
         success: function (data) {
-            if(tipoMedida=='TallaPechoVaron'){
+            if (tipoMedida == 'TallaPechoVaron') {
                 $('#pechovaron').html(data.html);
-            }else if(tipoMedida=='TallaCinturaVaron'){
+            } else if (tipoMedida == 'TallaCinturaVaron') {
                 $('#cinturavaron').html(data.html);
-            }else if(tipoMedida=='TallaHombroVaron'){
+            } else if (tipoMedida == 'TallaHombroVaron') {
                 $('#hombrovaron').html(data.html);
-            }else if(tipoMedida=='TallaLargoCuerpoVaron'){
+            } else if (tipoMedida == 'TallaLargoCuerpoVaron') {
                 $('#lcuerpovaron').html(data.html);
-            }else if(tipoMedida=='TallaLargoMangaVaron'){
+            } else if (tipoMedida == 'TallaLargoMangaVaron') {
                 $('#lmangavaron').html(data.html);
-            }else if(tipoMedida=='TallaPantalonCinturaVaron'){
+            } else if (tipoMedida == 'TallaPantalonCinturaVaron') {
                 $('#pcinturavaron').html(data.html);
-            }else if(tipoMedida=='TallaPantalonCaderaVaron'){
+            } else if (tipoMedida == 'TallaPantalonCaderaVaron') {
                 $('#pcaderavaron').html(data.html);
-            }else if(tipoMedida=='TallaPantalonMusloVaron'){
+            } else if (tipoMedida == 'TallaPantalonMusloVaron') {
                 $('#pmuslovaron').html(data.html);
-            }else if(tipoMedida=='TallaPechoDama'){
+            } else if (tipoMedida == 'TallaPechoDama') {
                 $('#pechomujer').html(data.html);
-            }else if(tipoMedida=='TallaCinturaDama'){
+            } else if (tipoMedida == 'TallaCinturaDama') {
                 $('#cinturamujer').html(data.html);
-            }else if(tipoMedida=='TallaLargoCuerpoDama'){
+            } else if (tipoMedida == 'TallaLargoCuerpoDama') {
                 $('#lcuerpomujer').html(data.html);
-            }else if(tipoMedida=='TallaLargoMangaDama'){
+            } else if (tipoMedida == 'TallaLargoMangaDama') {
                 $('#lmangamujer').html(data.html);
-            }else if(tipoMedida=='TallaPantalonCinturaMujer'){
+            } else if (tipoMedida == 'TallaPantalonCinturaMujer') {
                 $('#pcinturamujer').html(data.html);
-            }else if(tipoMedida=='TallaPantalonCaderaMujer'){
+            } else if (tipoMedida == 'TallaPantalonCaderaMujer') {
                 $('#pcaderamujer').html(data.html);
-            }else if(tipoMedida=='TallaCalzado'){
+            } else if (tipoMedida == 'TallaCalzado') {
                 $('#calzado').html(data.html);
-            }else if(tipoMedida=='TallaCasaca'){
+            } else if (tipoMedida == 'TallaCasaca') {
                 $('#casaca').html(data.html);
-            }else if(tipoMedida=='TallaChaleco'){
+            } else if (tipoMedida == 'TallaChaleco') {
                 $('#chaleco').html(data.html);
             }
 
@@ -85,7 +87,50 @@ function select_medida(tipoMedida) {
     });
 }
 
+function mostrar_uniformes_persona() {
+    $.ajax({
+        url: "../ajax/uniformes.php?op=mostrar_uniformes_persona",
+        type: "POST",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            if (data.status) {             
+                $('#pechovaron').val(data.datos.talla_camisa_pecho);
+                $('#cinturavaron').val(data.datos.talla_camisa_cintura);
+                $('#hombrovaron').val(data.datos.talla_camisa_hombro);
+                $('#lcuerpovaron').val(data.datos.talla_camisa_largo);
+                $('#lmangavaron').val(data.datos.talla_camisa_manga);
+
+                $('#pcinturavaron').val(data.datos.talla_pantalon_cintura);
+                $('#pcaderavaron').val(data.datos.talla_pantalon_cadera);
+                $('#pmuslovaron').val(data.datos.talla_pantalon_muslo);
+                $('#lpiernasvaron').val(data.datos.talla_pantalon_largo);
+
+                $('#pechomujer').val(data.datos.talla_camisa_pecho);
+                $('#cinturamujer').val(data.datos.talla_camisa_cintura);               
+                $('#lcuerpomujer').val(data.datos.talla_camisa_largo);
+                $('#lmangamujer').val(data.datos.talla_camisa_manga);
+
+                $('#pcinturamujer').val(data.datos.talla_pantalon_cintura);
+                $('#pcaderamujer').val(data.datos.talla_pantalon_cadera);           
+                $('#lpiernasmujer').val(data.datos.talla_pantalon_largo);
+
+                $('#calzado').val(data.datos.talla_zapato);
+                $('#casaca').val(data.datos.talla_casaca);
+                $('#chaleco').val(data.datos.talla_chaleco);
+
+                $('#ubicacion').val(data.datos.lugar_recojo);
+                $('#datos').val(data.datos.tipo_envio);
+                $('#nombres').val(data.datos.nombre_contacto);
+                $('#celular').val(data.datos.celular_contacto);
+                $('#DNI').val(data.datos.dni_contacto);           
+            }
+        }
+    });
+}
+
 function mostrar(tipo) {
+
     if (tipo == 2) {
         if ($('#sexo').val() == "MASCULINO") {
             if ($('#divcamisa').is(":visible")) {
@@ -355,7 +400,7 @@ function guardar() {
         processData: false,
         dataType: "json",
         success: function (data) {
-              console.log(data)
+            console.log(data)
             Toast.fire({
                 icon: data.ico,
                 title: data.msg

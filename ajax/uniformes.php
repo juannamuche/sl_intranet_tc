@@ -29,6 +29,32 @@ switch ($_GET["op"]) {
 
 		break;
 
+		case "mostrar_uniformes_persona":		
+			$idpersona=$_SESSION['id_persona'];
+			$array = array();
+			$rspta = $uniformes->mostrar_uniformes_persona($idpersona);
+
+			if (!empty($rspta)) {
+
+				$array = array(
+					"status" => true,
+					"datos" => $rspta,
+					"ico" => "success",
+					"msg" => "Exito"
+				);
+			} else {
+				$array = array(
+					"status" => false,
+					"datos" => 0,
+					"ico" => "error",
+					"msg" => "Sin información"
+				);
+			}
+	
+			echo json_encode($array);
+
+			break;
+
 	case "guardar_uniforme":
 
 		$pechovaron = isset($_POST["pechovaron"]) ? limpiarCadena($_POST["pechovaron"]) : "";
@@ -61,9 +87,9 @@ switch ($_GET["op"]) {
 
 		$array = array();
 		if ($_SESSION['sexo'] == 'MASCULINO') {
-			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechovaron, $cinturavaron,$hombrovaron,$lcuerpovaron,$lmangavaron,$pcinturavaron,$pcaderavaron,$pmuslovaron,$lpiernasvaron,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni);
+			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechovaron, $cinturavaron,$hombrovaron,$lcuerpovaron,$lmangavaron,$pcinturavaron,$pcaderavaron,$pmuslovaron,$lpiernasvaron,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
 		} else {
-			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechomujer, $cinturamujer,'',$lcuerpomujer,$lmangamujer,$pcinturamujer,$pcaderamujer,'',$lpiernasmujer,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni);
+			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechomujer, $cinturamujer,'',$lcuerpomujer,$lmangamujer,$pcinturamujer,$pcaderamujer,'',$lpiernasmujer,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
 		}
 
 		if (!empty($rspta)) {

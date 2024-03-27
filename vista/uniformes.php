@@ -138,10 +138,13 @@ if (!isset($_SESSION["id_persona"])) {
         <div class="content-wrapper container-fluid">
             <!-- Main content -->
             <header>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
-                    </div>
+            <div class="row mt-2">                 
+                        <div class="col-10">
+                            <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
+                        </div>
+                        <div class="col-2 d-none d-md-block">
+                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona']?></span>
+                        </div>                  
                 </div>
             </header>
 
@@ -180,31 +183,31 @@ if (!isset($_SESSION["id_persona"])) {
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pechovaron" class="form-label"><strong>Medida de pecho:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pechovaron" name="pechovaron">
-                                                 
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="cinturavaron" class="form-label"><strong>Medida de cintura:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="cinturavaron" name="cinturavaron">
-                                                  
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="hombrovaron" class="form-label"><strong>Medida de hombro:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="hombrovaron" name="hombrovaron">
-                                                       
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="lcuerpovaron" class="form-label"><strong>Medida de L. Cuerpo:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="lcuerpovaron" name="lcuerpovaron">
-                                                       
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="lmangavaron" class="form-label"><strong>Medida de L. Manga:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="lmangavaron" name="lmangavaron">
-                                               
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -222,19 +225,19 @@ if (!isset($_SESSION["id_persona"])) {
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pcinturavaron" class="form-label"><strong>Medida de cintura:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pcinturavaron" name="pcinturavaron">
-                                                     
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pcaderavaron" class="form-label"><strong>Medida de cadera:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pcaderavaron" name="pcaderavaron">
-                                                     
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pmuslovaron" class="form-label"><strong>Medida de muslo:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pmuslovaron" name="pmuslovaron">
-                                     
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
@@ -256,25 +259,25 @@ if (!isset($_SESSION["id_persona"])) {
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pechomujer" class="form-label"><strong>Medida de Pecho:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pechomujer" name="pechomujer">
-                                                     
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="cinturamujer" class="form-label"><strong>Medida de Cintura:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="cinturamujer" name="cinturamujer">
-                                                     
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="lcuerpomujer" class="form-label"><strong>Medida de L. Cuerpo:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="lcuerpomujer" name="lcuerpomujer">
-                                                 
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="lmangamujer" class="form-label"><strong>Medida de L. Manga:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="lmangamujer" name="lmangamujer">
-                                                 
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -292,13 +295,13 @@ if (!isset($_SESSION["id_persona"])) {
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pcinturamujer" class="form-label"><strong>Medida de cintura:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pcinturamujer" name="pcinturamujer">
-                                                  
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
                                                             <label for="pcaderamujer" class="form-label"><strong>Medida de cadera:(*)</strong></label>
                                                             <select class="form-control form-select border-info" id="pcaderamujer" name="pcaderamujer">
-                                                        
+
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-lg-6 mb-3">
@@ -315,19 +318,19 @@ if (!isset($_SESSION["id_persona"])) {
                                                 <div class="col-12 col-lg-4 mb-3">
                                                     <label for="calzado" class="form-label"><strong>Ingrese la medida de calzado:(*)</strong></label>
                                                     <select class="form-control form-select border-info" id="calzado" name="calzado">
-                                                  
+
                                                     </select>
                                                 </div>
                                                 <div class="col-12 col-lg-4 mb-3">
                                                     <label for="casaca" class="form-label"><strong>Talla de Casaca:(*)</strong></label>
                                                     <select class="form-control form-select border-info" id="casaca" name="casaca">
-                                               
+
                                                     </select>
                                                 </div>
                                                 <div class="col-12 col-lg-4 mb-3">
                                                     <label for="chaleco" class="form-label"><strong>Talla de Chaleco:(*)</strong></label>
                                                     <select class="form-control form-select border-info" id="chaleco" name="chaleco">
-                                              
+
                                                     </select>
                                                 </div>
                                             </div>

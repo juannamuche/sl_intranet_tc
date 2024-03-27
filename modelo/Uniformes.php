@@ -16,9 +16,14 @@ class Uniformes
 		return ejecutarConsulta($sql);
 	}
 
+	public function mostrar_uniformes_persona($idpersona)
+	{
+		$sql="select * from tb_persona where id_persona=$idpersona";
+		return ejecutarConsultaSimpleFila($sql);
+	}
 
-function guardar_uniforme($idpersona,$pecho,$cintura,$hombro,$cuerpo,$manga,$cintura_pantalon,$cadera,$muslo,$piernas,$calzado,$casaca,$chaleco,$ubicacion,$envio,$nombre,$celular,$dni){
-	$sql="CALL sp_uniforme_grabar($idpersona,'$pecho','$cintura','$hombro','$cuerpo','$manga','$cintura_pantalon','$cadera','$muslo','$piernas','$calzado','$casaca','$chaleco','$ubicacion','$envio','$nombre','$celular','$dni')";
+function guardar_uniforme($idpersona,$pecho,$cintura,$hombro,$cuerpo,$manga,$cintura_pantalon,$cadera,$muslo,$piernas,$calzado,$casaca,$chaleco,$ubicacion,$envio,$nombre,$celular,$dni,$tipo){
+	$sql="CALL sp_uniforme_grabar($idpersona,'$pecho','$cintura','$hombro','$cuerpo','$manga','$cintura_pantalon','$cadera','$muslo','$piernas','$calzado','$casaca','$chaleco','$ubicacion','$envio','$nombre','$celular','$dni',$tipo)";
 	//var_dump($sql);die();
 	return ejecutarConsultaSimpleFila($sql);
 }

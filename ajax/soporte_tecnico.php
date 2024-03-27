@@ -24,6 +24,7 @@ switch ($_GET["op"]) {
 
 			$_SESSION['dni'] = $rspta['dni'];
 			$_SESSION['id_persona'] = $rspta['id_persona'];
+			$_SESSION['persona'] = $rspta['nombre'];
 			$_SESSION['sexo'] = $rspta['sexo'];
 			$array = array(
 				"status" => true,
