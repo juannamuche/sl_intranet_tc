@@ -147,39 +147,10 @@ switch ($_GET["op"]) {
 		$centro_utilidad = isset($_POST["centro_utilidad"]) ? limpiarCadena($_POST["centro_utilidad"]) : "";
 		$centro_costo = isset($_POST["centro_costo"]) ? limpiarCadena($_POST["centro_costo"]) : "";
 		$sede = isset($_POST["sede"]) ? limpiarCadena($_POST["sede"]) : "";
-		//$id_requerimiento = isset($_POST["id_requerimiento"]) ? limpiarCadena($_POST["id_requerimiento"]) : "";
-
+	
 		$importancia = "";
 		$origen = 15;
 
-		//	if($id_requerimiento>0){
-		//	$validacion=$soporte->validar_requerimiento($id_requerimiento);	
-		// if($validacion>0){//si el requerimiento actual tiene detalles insertamosel el nuevo requerimiento
-		// 	$rspta = $soporte->insertar_requerimiento($importancia, $centro_utilidad, $centro_costo, $sede, $origen);
-		// 	if (!empty($rspta)) {
-		// 		$array = array(
-		// 			"status" => true,
-		// 			"idRetorno" => $rspta['id_requerimiento'],
-		// 			"ico" => "success",
-		// 			"msg" => "Requerimiento insertado con exito"
-		// 		);
-		// 	} else {
-		// 		$array = array(
-		// 			"status" => false,
-		// 			"idRetorno" => 0,
-		// 			"ico" => "error",
-		// 			"msg" => "No se pudo registrar el requerimiento"
-		// 		);
-		// 	}
-		// }else{//si el requerimiento actual no tiene detalles no insertamos 
-		// 	$array = array(
-		// 		"status" => false,
-		// 		"idRetorno" => 0,
-		// 		"ico" => "info",
-		// 		"msg" => "Debe registrar detalles al requerimiento actual"
-		// 	);
-		// }	
-		//}else{
 		$rspta = $soporte->insertar_requerimiento($importancia, $centro_utilidad, $centro_costo, $sede, $origen);
 		if (!empty($rspta)) {
 			$array = array(
@@ -256,7 +227,7 @@ switch ($_GET["op"]) {
 		$categoria = isset($_POST["categoria"]) ? limpiarCadena($_POST["categoria"]) : "";
 		$persona = $_SESSION['id_persona'];
 
-		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona);
+		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona,1);
 
 
 		if (!empty($rspta)) {
