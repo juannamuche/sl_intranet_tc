@@ -60,9 +60,9 @@ class Soporte
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona)
+	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo)
 	{
-		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona);";
+		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo);";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
