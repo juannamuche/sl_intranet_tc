@@ -60,9 +60,9 @@ class Soporte
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo)
+	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo,$asignado)
 	{
-		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo);";
+		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo,$asignado);";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -107,9 +107,9 @@ class Soporte
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function anular_requerimiento_detalle($id_requerimiento_detalle, $usuario, $comentario,$persona)
+	public function anular_requerimiento_detalle($id_requerimiento_detalle, $usuario, $comentario,$persona,$rol)
 	{
-		$sql = "CALL sp_logistico_requerimiento_detalle_anular($id_requerimiento_detalle,$usuario,'$comentario',$persona)";
+		$sql = "CALL sp_logistico_requerimiento_detalle_anular($id_requerimiento_detalle,$usuario,'$comentario',$persona,$rol)";
 
 		return ejecutarConsultaSimpleFila($sql);
 	}
@@ -136,7 +136,14 @@ class Soporte
 	{
 		$sql = "CALL sp_requerimiento_eliminar_vacios($id_requerimiento)";
 		return ejecutarConsultaSimpleFila($sql);
+	
 	}
 
+	public function obtener_asignado($catalogo)
+	{
+		$sql="CALL sp_soporte_persona_asignada($catalogo)"; 
+	//	$sql = "select max(r.id_requerimiento) as id_requerimiento,drp.id_persona_asignada,p.nombre from tb_det_req_persona drp join tb_detalle_requerimiento dr on dr.Id_detalle_requerimiento=drp.Id_detalle_requerimiento  JOIN tb_requerimiento r on r.id_requerimiento=dr.id_requerimiento join tb_persona p on drp.id_persona_asignada= p.id_persona where dr.id_origen=15 and dr.id_catalogo=87 ;";
+		return ejecutarConsultaSimpleFila($sql);
+	}
 	
 }

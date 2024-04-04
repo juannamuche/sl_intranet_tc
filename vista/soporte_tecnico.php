@@ -42,7 +42,8 @@ if (!isset($_SESSION["id_persona"])) {
         <link rel="stylesheet" href="../assets/css/responsive.dataTables.min.css">
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-        </head>
+    </head>
+
     <body>
         <style>
             .switch-field {
@@ -131,19 +132,19 @@ if (!isset($_SESSION["id_persona"])) {
                 border: 1px solid #17a2b8;
             }
         </style>
-    
+
 
 
         <div class="content-wrapper container-fluid">
             <!-- Main content -->
             <header>
-            <div class="row mt-2">                 
-                        <div class="col-10">
-                            <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
-                        </div>
-                        <div class="col-2 d-none d-md-block">
-                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona']?></span>
-                        </div>                  
+                <div class="row mt-2">
+                    <div class="col-10">
+                        <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
+                    </div>
+                    <div class="col-2 d-none d-md-block">
+                        <span><strong>USUARIO:<strong><?php echo $_SESSION['persona'] ?></span>
+                    </div>
                 </div>
             </header>
 
@@ -287,7 +288,8 @@ if (!isset($_SESSION["id_persona"])) {
                                 <div class="card-body card-block" id="div-anadir">
                                     <div class="col-12">
                                         <form method="post" id="frm_req_logistico" enctype="multipart/form-data">
-
+                                            <input type="hidden" id="ultimo_asignado" name="ultimo_asignado" value="0">
+                                            <input type="hidden" id="nombre_ultimo_asignado" name="nombre_ultimo_asignado" value="">
                                             <div class="row mb-3">
                                                 <div class="col-lg-4 col-md-4 col-12 mb-3">
                                                     <label for="centro_utilidad" class="form-label"><strong>Centro de Utilidad:(*)</strong></label>
@@ -360,7 +362,7 @@ if (!isset($_SESSION["id_persona"])) {
             <!-- <footer>
                 <div class="row col-12 bg-info p-3" style="position:absolute;bottom:0px"><div class="col-12 text-center text-white"><span>Copyright © 2024. Salus Laboris</span></div></div>
             </footer> -->
-            
+
             <!-- Modal -->
             <div class="modal fade" id="ModalAgregarDetalles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-lg" role="document">
@@ -464,32 +466,31 @@ if (!isset($_SESSION["id_persona"])) {
                 </div>
             </div>
 
-            
+
         </div>
 
         <script src="../assets/js/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="../assets/js/bootstrap@4.1.3.min.js"></script>
-    <script src="../assets/js/sweetalert2.all.min.js"></script>
-    <script src="../assets/js/jquery.dataTables@1.13.7.min.js"></script>
-    <script src="../assets/js/dataTables.buttons@2.1.0.min.js"></script>
-    <script src="../assets/js/buttons.html5@2.1.0.min.js"></script>
-    <script src="../assets/js/buttons@2.1.0.print.min.js"></script>
-    <script src="../assets/js/jszip@3.1.3.min.js"></script>
+        <script src="../assets/js/sweetalert2.all.min.js"></script>
+        <script src="../assets/js/jquery.dataTables@1.13.7.min.js"></script>
+        <script src="../assets/js/dataTables.buttons@2.1.0.min.js"></script>
+        <script src="../assets/js/buttons.html5@2.1.0.min.js"></script>
+        <script src="../assets/js/buttons@2.1.0.print.min.js"></script>
+        <script src="../assets/js/jszip@3.1.3.min.js"></script>
 
 
 
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> -->
-    <script src="../assets/js/bootstrap-select@1.13.1.min.js"></script>
-    <script type="text/javascript" src="scripts/soporte_tecnico.js?=<?php echo time() ?>"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> -->
+        <script src="../assets/js/bootstrap-select@1.13.1.min.js"></script>
+        <script type="text/javascript" src="scripts/soporte_tecnico.js?=<?php echo time() ?>"></script>
 
     </body>
 
     </html>
 
-    <?php
+<?php
 
 }
-    ?>
-
+?>

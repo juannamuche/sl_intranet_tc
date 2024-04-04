@@ -191,6 +191,19 @@ function listar_sub_catalogo_soporte() {
     });
 }
 
+function obtener_asignado() {
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=obtener_asignado",
+        type: "POST",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+            $('#ultimo_asignado').val(data.detalles.id_persona);
+            $('#nombre_ultimo_asignado').val(data.detalles.nombre);
+        }
+    });
+}
 /***************anadir requerimiento */
 $("#agregar_requerimiento").on('click', function (e) {
     let centro_utilidad = $("#centro_utilidad").val();
@@ -240,7 +253,7 @@ $("#agregar_requerimiento").on('click', function (e) {
                 $("#agregar_requerimiento").prop("disabled", true);
                 limpiar_detalles();
                 llenar_tabla_detalles();
-
+                obtener_asignado();
             }
             console.log(data)
             Toast.fire({
@@ -379,7 +392,7 @@ function insertar_detalle_requerimiento() {
 
 
     var formData = new FormData($("#frm_req_logistico_det")[0]);
-
+    formData.append("asignado", $('#ultimo_asignado').val());
     $.ajax({
         url: "../ajax/soporte_tecnico.php?op=insertar_requerimiento_detalles",
         type: "POST",
@@ -729,7 +742,7 @@ function anular_requerimiento() {
     var id_requerimiento = $('#IdRequerimientoAnular').val();
     var id_detalle_requerimiento = $('#IdRequerimientoDetalleAnular').val();
     var comentario = $('#motivoanulacion').val();
-    if(comentario==''){
+    if (comentario == '') {
         Toast.fire({
             icon: 'info',
             title: 'Debe ingresar motivo de anulación'

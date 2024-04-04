@@ -225,9 +225,10 @@ switch ($_GET["op"]) {
 		$detalle = isset($_POST["detalle_requerimiento"]) ? limpiarCadena($_POST["detalle_requerimiento"]) : "";
 		$plazo = isset($_POST["plazo"]) ? limpiarCadena($_POST["plazo"]) : "";
 		$categoria = isset($_POST["categoria"]) ? limpiarCadena($_POST["categoria"]) : "";
+		$asignado= isset($_POST["asignado"]) ? limpiarCadena($_POST["asignado"]) : "";
 		$persona = $_SESSION['id_persona'];
 
-		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona,1);
+		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona,1,$asignado);
 
 
 		if (!empty($rspta)) {
@@ -261,6 +262,28 @@ switch ($_GET["op"]) {
 
 		echo json_encode($array);
 		break;
+
+		case 'obtener_asignado':
+            $array = array();
+   
+            $rspta = $soporte->obtener_asignado(87);
+            if (!empty($rspta)) {
+                $array = array(
+                    "status" => true,
+                    "detalles" => $rspta,
+                    "ico" => "success",
+                    "msg" => "tiene detalles."
+                );
+            } else {
+                $array = array(
+                    "status" => false,
+                    "detalles" => 0,
+                    "ico" => "error",
+                    "msg" => "vacio."
+                );
+            }
+            echo json_encode($array);
+            break;
 
 	case 'listar_tabla_detalles':
 		$id_requerimiento = isset($_GET["id"]) ? limpiarCadena($_GET["id"]) : "";
@@ -474,7 +497,7 @@ switch ($_GET["op"]) {
 			}
 		} else if ($id_detalle_requerimiento > 0) {
 
-			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['id_persona']);
+			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['id_persona'],2);
 			if (!empty($rspta)) {
 				$array = array(
 					"status" => true,
