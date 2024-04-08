@@ -23,8 +23,8 @@ switch ($_GET["op"]) {
 		if (!empty($rspta)) {
 
 			$_SESSION['dni'] = $rspta['dni'];
-			$_SESSION['id_persona'] = $rspta['id_persona'];
-			$_SESSION['persona'] = $rspta['nombre'];
+			$_SESSION['persona_id'] = $rspta['id_persona'];
+			$_SESSION['persona_nombre'] = $rspta['nombre'];
 			$_SESSION['sexo'] = $rspta['sexo'];
 			$array = array(
 				"status" => true,
@@ -226,7 +226,7 @@ switch ($_GET["op"]) {
 		$plazo = isset($_POST["plazo"]) ? limpiarCadena($_POST["plazo"]) : "";
 		$categoria = isset($_POST["categoria"]) ? limpiarCadena($_POST["categoria"]) : "";
 		$asignado= isset($_POST["asignado"]) ? limpiarCadena($_POST["asignado"]) : "";
-		$persona = $_SESSION['id_persona'];
+		$persona = $_SESSION['persona_id'];
 
 		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona,1,$asignado);
 
@@ -326,7 +326,7 @@ switch ($_GET["op"]) {
 		$fecha_fin = isset($_GET["fhasta"]) ? limpiarCadena($_GET["fhasta"]) : "";
 		$servicio = isset($_GET["fservicio"]) ? limpiarCadena($_GET["fservicio"]) : "";
 		$estado = isset($_GET["festado"]) ? limpiarCadena($_GET["festado"]) : "";
-		$persona = $_SESSION['id_persona'];
+		$persona = $_SESSION['persona_id'];
 		$rspta = $soporte->listar_requerimientos($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio);
 
 		$data = array();
@@ -371,7 +371,7 @@ switch ($_GET["op"]) {
 		$id_requerimiento = isset($_POST["id"]) ? limpiarCadena($_POST["id"]) : "";
 
 		$array = array();
-		$rspta = $soporte->listar_detalles($id_requerimiento, $_SESSION['id_persona']);
+		$rspta = $soporte->listar_detalles($id_requerimiento, $_SESSION['persona_id']);
 
 		while ($reg = $rspta->fetch_object()) {
 			//	$personas_asignadas =  explode(",", $reg->asignados);
@@ -429,7 +429,7 @@ switch ($_GET["op"]) {
 		$fecha_fin = isset($_GET["fhasta"]) ? limpiarCadena($_GET["fhasta"]) : "";
 		$servicio = isset($_GET["fservicio"]) ? limpiarCadena($_GET["fservicio"]) : "";
 		$estado = isset($_GET["festado"]) ? limpiarCadena($_GET["festado"]) : "";
-		$persona = $_SESSION['id_persona'];
+		$persona = $_SESSION['persona_id'];
 		$data = array();
 
 		$rspta = $soporte->soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio);
@@ -479,7 +479,7 @@ switch ($_GET["op"]) {
 		$comentario = isset($_POST["comentario"]) ? limpiarCadena($_POST["comentario"]) : "";
 
 		if ($id_detalle_requerimiento == 0) {
-			$rspta = $soporte->anular_requerimiento($id_requerimiento,  0/*sin usuario */, $comentario, $_SESSION['id_persona']);
+			$rspta = $soporte->anular_requerimiento($id_requerimiento,  0/*sin usuario */, $comentario, $_SESSION['persona_id']);
 			if (!empty($rspta)) {
 				$array = array(
 					"status" => true,
@@ -497,7 +497,7 @@ switch ($_GET["op"]) {
 			}
 		} else if ($id_detalle_requerimiento > 0) {
 
-			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['id_persona'],2);
+			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['persona_id'],2);
 			if (!empty($rspta)) {
 				$array = array(
 					"status" => true,

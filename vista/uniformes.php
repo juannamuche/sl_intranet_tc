@@ -3,7 +3,7 @@
 ob_start();
 session_start();
 
-if (!isset($_SESSION["id_persona"])) {
+if (!isset($_SESSION["persona_id"])) {
     header("Location: login.php");
 } else {
     $fecha_actual = date('Y-m-d');
@@ -143,7 +143,7 @@ if (!isset($_SESSION["id_persona"])) {
                             <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
                         </div>
                         <div class="col-2 d-none d-md-block">
-                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona']?></span>
+                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona_nombre']?></span>
                         </div>                  
                 </div>
             </header>

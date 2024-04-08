@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["id_persona"])) {
+if (!isset($_SESSION["persona_id"])) {
     header("Location: login.php");
 } else {
 ?>

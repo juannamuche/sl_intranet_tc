@@ -3,7 +3,7 @@
 ob_start();
 session_start();
 
-if (!isset($_SESSION["id_persona"])) {
+if (!isset($_SESSION["persona_id"])) {
     header("Location: login.php");
 } else {
     $fecha_actual = date('Y-m-d');
@@ -131,6 +131,13 @@ if (!isset($_SESSION["id_persona"])) {
             .card {
                 border: 1px solid #17a2b8;
             }
+
+            @media screen and (max-width: 640px) {
+                div.dt-buttons {
+                    float: none !important;
+                    text-align: left !important;
+                }
+            }
         </style>
 
 
@@ -143,7 +150,7 @@ if (!isset($_SESSION["id_persona"])) {
                         <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
                     </div>
                     <div class="col-2 d-none d-md-block">
-                        <span><strong>USUARIO:<strong><?php echo $_SESSION['persona'] ?></span>
+                        <span><strong>USUARIO:<strong><?php echo $_SESSION['persona_nombre'] ?></span>
                     </div>
                 </div>
             </header>
@@ -170,16 +177,16 @@ if (!isset($_SESSION["id_persona"])) {
                                 <div class="card-body card-block" id="div-requerimientos">
                                     <div class="p-md-3">
                                         <div class="row">
-                                            <div class="row col-12">
+                                   
                                                 <div class="col-6">
-                                                    <button class="btn btn-success mb-3" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Registrar Requerimiento</button>
+                                                    <button class="btn btn-success btn-sm mb-3" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Registrar Requerimiento</button>
                                                 </div>
-                                                <div class="col-6 d-flex justify-content-end">
-                                                    <button class="btn btn-info mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                <div class="col-6 d-flex justify-content-end justify-content-md-end">
+                                                    <button class="btn btn-info btn-sm mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                                         <i class="fa fa-filter"></i> Filtros
                                                     </button>
                                                 </div>
-                                            </div>
+                                           
                                             <div class="collapse col-12" id="collapseExample">
                                                 <div class="card card-body" style="max-width:100% !important">
                                                     <form id="filtros">
@@ -225,7 +232,7 @@ if (!isset($_SESSION["id_persona"])) {
                                         </div>
 
                                         <div class="row p-2">
-                                            <h5 class="font-weight-bold d-flex align-items-sm-center">Agrupar requerimientos:</h5>
+                                            <h5 class="font-weight-bold d-flex align-items-sm-center">Agrupar requerimientos:</h5>&nbsp;&nbsp;
                                             <div class="switch-field">
 
                                                 <input type="radio" id="radio-one" name="switch-one" value="1">
@@ -252,7 +259,7 @@ if (!isset($_SESSION["id_persona"])) {
                                             </table>
                                         </div>
 
-                                        <div class="panel-body table-responsive row col-12" id="lista-detalles">
+                                        <div class=" table-responsive col-12" id="lista-detalles">
                                             <table id="tabla_det_requerimientos" class="table table-bordered table-condensed table-hover">
                                                 <thead class="bg-info text-white">
                                                     <th></th>
@@ -310,7 +317,7 @@ if (!isset($_SESSION["id_persona"])) {
                                                         <option value="0" disabled selected>Seleccione una Sede</option>
                                                     </select>
                                                 </div>
-                                                <div class="row col-12">
+                                                <div class="row ">
                                                     <div class="col-lg-12 col-md-12 col-12 d-flex align-items-end">
                                                         <div class="col-12 mb-3">
                                                             <!-- <button class="btn btn-primary" type="button" onclick="BotonNuevo()" id="agregar_requerimiento_nuevo" style="display: none;"><i class="fa fa-save"></i> Nuevo</button> -->
@@ -324,8 +331,8 @@ if (!isset($_SESSION["id_persona"])) {
                                         </form>
 
 
-                                        <div class="row col-12 mb-3">
-                                            <div class="col-12 mt-3">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
                                                 <div class="col-lg-8 col-md-8 col-12 mb-3">
                                                     <button class="btn btn-success" type="button" id="agregar_requerimiento_detalle" data-toggle="modal" data-target="#ModalAgregarDetalles"><i class="fa fa-plus-circle"></i> Añadir detalle</button>
                                                 </div>

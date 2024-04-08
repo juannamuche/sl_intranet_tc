@@ -63,6 +63,7 @@ class Soporte
 	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo,$asignado)
 	{
 		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo,$asignado);";
+	//	var_dump($sql);die();
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -75,7 +76,7 @@ class Soporte
 	public function listar_requerimiento_detalle($id_requerimiento)
 	{
 		$sql = "CALL sp_logistico_requerimiento_detalle_listar($id_requerimiento)";
-
+	//	var_dump($sql);die();
 		return ejecutarConsulta($sql);
 	}
 
@@ -96,7 +97,7 @@ class Soporte
 	public function soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $origen, $estado, $persona, $servicio)
 	{
 		$sql = "CALL sp_soporte_persona_detalle_listar('$fecha_inicio','$fecha_fin',$origen,'$estado',$persona,'$servicio')";
-
+//var_dump($sql);die();
 		return ejecutarConsulta($sql);
 	}
 

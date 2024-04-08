@@ -460,6 +460,7 @@ function llenar_tabla_detalles() {
                 }
             },
             Response: true,
+            "scrollX":true,
             "bDestroy": true,
             "iDisplayLength": 5,//Paginación
             "order": [[0, "desc"]]//Ordenar (columna,orden)
@@ -624,9 +625,8 @@ function Lista_Det_Requerimiento() {
         ],
 
         "responsive": true,
-        //   scrollX: true,
-
-        //"autoWidth": true,
+        scrollX: true,
+        "autoWidth": false,
         "columns": [
             { data: '0', name: 'opt', className: "text-center" },
             { data: '1', name: 'opt', className: "text-center" },

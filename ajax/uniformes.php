@@ -30,7 +30,7 @@ switch ($_GET["op"]) {
 		break;
 
 		case "mostrar_uniformes_persona":		
-			$idpersona=$_SESSION['id_persona'];
+			$idpersona=$_SESSION['persona_id'];
 			$array = array();
 			$rspta = $uniformes->mostrar_uniformes_persona($idpersona);
 
@@ -87,9 +87,9 @@ switch ($_GET["op"]) {
 
 		$array = array();
 		if ($_SESSION['sexo'] == 'MASCULINO') {
-			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechovaron, $cinturavaron,$hombrovaron,$lcuerpovaron,$lmangavaron,$pcinturavaron,$pcaderavaron,$pmuslovaron,$lpiernasvaron,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
+			$rspta = $uniformes->guardar_uniforme($_SESSION['persona_id'],$pechovaron, $cinturavaron,$hombrovaron,$lcuerpovaron,$lmangavaron,$pcinturavaron,$pcaderavaron,$pmuslovaron,$lpiernasvaron,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
 		} else {
-			$rspta = $uniformes->guardar_uniforme($_SESSION['id_persona'],$pechomujer, $cinturamujer,'',$lcuerpomujer,$lmangamujer,$pcinturamujer,$pcaderamujer,'',$lpiernasmujer,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
+			$rspta = $uniformes->guardar_uniforme($_SESSION['persona_id'],$pechomujer, $cinturamujer,'',$lcuerpomujer,$lmangamujer,$pcinturamujer,$pcaderamujer,'',$lpiernasmujer,$calzado,$casaca,$chaleco,$ubicacion,$datos,$nombres,$celular,$dni,1);
 		}
 
 		if (!empty($rspta)) {
