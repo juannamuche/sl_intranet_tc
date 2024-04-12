@@ -33,7 +33,7 @@ session_destroy();
             </div>
             <div class="col-12 col-md-6">
                 <img class="mx-auto d-block d-md-none mb-3" src="../images/salus.webp" height="80px" width="auto">
-                <h4 class="text-center text-info d-none d-md-block"><strong>SOPORTE TÉCNICO</strong></h4>
+                <h4 class="text-center text-info d-none d-md-block"><strong>INTRANET SALUS LABORIS</strong></h4>
                 <div class="login-form  offset-lg-2 col-lg-8">
                     <form method="post" id="frmAcceso">
                         <div class="form-group">

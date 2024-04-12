@@ -36,10 +36,10 @@ class Soporte
 		return ejecutarConsulta($sql);
 	}
 
-	public function select_catalogo_soporte($id_catalogo)
+	public function select_catalogo_soporte()
 	{
-		$sql = "SELECT * FROM tb_catalogo WHERE id_catalogo=$id_catalogo;";
-		return ejecutarConsultaSimpleFila($sql);
+		$sql = "SELECT * FROM tb_catalogo WHERE id_catalogo=87 or id_catalogo=121;";
+		return ejecutarConsulta($sql);
 	}
 
 	public function select_subcatalogo_soporte($id_catalogo)
@@ -63,7 +63,7 @@ class Soporte
 	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo,$asignado)
 	{
 		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo,$asignado);";
-	//	var_dump($sql);die();
+		//var_dump($sql);die();
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -80,9 +80,9 @@ class Soporte
 		return ejecutarConsulta($sql);
 	}
 
-	public function listar_requerimientos($fecha_inicio, $fecha_fin, $origen, $estado, $persona, $servicio)
+	public function listar_requerimientos($fecha_inicio, $fecha_fin, $origen, $estado, $persona, $servicio,$asignado)
 	{
-		$sql = "CALL sp_soporte_persona_listar_requerimiento_agrupado('$fecha_inicio','$fecha_fin',$origen,'$estado',$persona,'$servicio')";
+		$sql = "CALL sp_soporte_persona_listar_requerimiento_agrupado('$fecha_inicio','$fecha_fin',$origen,'$estado',$persona,'$servicio','$asignado')";
 		//var_dump($sql);die();
 		return ejecutarConsulta($sql);
 	}
@@ -94,9 +94,9 @@ class Soporte
 		return ejecutarConsulta($sql);
 	}
 
-	public function soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $origen, $estado, $persona, $servicio)
+	public function soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $origen, $estado, $persona, $servicio,$asignado)
 	{
-		$sql = "CALL sp_soporte_persona_detalle_listar('$fecha_inicio','$fecha_fin',$origen,'$estado',$persona,'$servicio')";
+		$sql = "CALL sp_soporte_persona_detalle_listar('$fecha_inicio','$fecha_fin',$origen,'$estado',$persona,'$servicio','$asignado')";
 //var_dump($sql);die();
 		return ejecutarConsulta($sql);
 	}
@@ -143,8 +143,15 @@ class Soporte
 	public function obtener_asignado($catalogo)
 	{
 		$sql="CALL sp_soporte_persona_asignada($catalogo)"; 
+	//	var_dump($sql);die();
 	//	$sql = "select max(r.id_requerimiento) as id_requerimiento,drp.id_persona_asignada,p.nombre from tb_det_req_persona drp join tb_detalle_requerimiento dr on dr.Id_detalle_requerimiento=drp.Id_detalle_requerimiento  JOIN tb_requerimiento r on r.id_requerimiento=dr.id_requerimiento join tb_persona p on drp.id_persona_asignada= p.id_persona where dr.id_origen=15 and dr.id_catalogo=87 ;";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 	
+	public function select_personas_asignar(){
+		$sql = "select * from tb_persona where id_persona=330 or id_persona=486 or id_persona=333";
+		return ejecutarConsulta($sql);
+	}
+
+
 }

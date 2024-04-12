@@ -10,13 +10,16 @@ var tablaDetalles;
 var tablaRequerimientos;
 var tablaDetallesRequerimientos;
 function init() {
+    listar_personas_asignar();
+    listar_catalogo_soporte(); 
     $("#lista-requerimientos").hide();
     $("#div-anadir").hide();
+    $("#agregar_requerimiento_detalle").prop("disabled", true);
     listar_centro_utilidad();
     llenar_tabla_requerimientos();
-    listar_sub_catalogo_soporte();
-    $("#agregar_requerimiento_detalle").prop("disabled", true);
     Lista_Det_Requerimiento();
+   
+
 }
 
 
@@ -105,12 +108,15 @@ function limpiar_cabecera() {
 }
 
 function limpiar_detalles() {
+    $("#servicio").val('0');
+    $("#servicio").selectpicker('refresh');
     $("#categoria").val('0');
     $("#categoria").selectpicker('refresh');
     $("#detalle_requerimiento").val('');
     $("#plazo").val('');
     $("#subir_archivo").val('');
     $("#tb_archivos").html("");
+    $("#asignado").html("");
     document.querySelector('#div_tabla_archivos').style.display = "none";
 }
 function listar_centro_utilidad() {
@@ -167,8 +173,10 @@ function listar_catalogo_soporte() {
         dataType: "json",
         success: function (data) {
             console.log(data)
-            $('#tipo_servicio').html(data.html);
-            $('#tipo_servicio').selectpicker('refresh');
+            $('#servicio').html(data.html);
+            $('#servicio').selectpicker('refresh');
+            $('#fservicio').html(data.html);
+            $('#fservicio').selectpicker('refresh');
 
         }
     });
@@ -176,10 +184,11 @@ function listar_catalogo_soporte() {
 
 function listar_sub_catalogo_soporte() {
 
+    let idcatalogo=$('#servicio').val();
     $.ajax({
         url: "../ajax/soporte_tecnico.php?op=sub_catalogo_soporte_listar",
         type: "POST",
-        data: {},
+        data: {idcatalogo:idcatalogo},
         dataType: "json",
         success: function (data) {
             console.log(data)
@@ -187,6 +196,7 @@ function listar_sub_catalogo_soporte() {
             $('#categoria').selectpicker('refresh');
             $('#fservicio').html(data.html);
             $('#fservicio').selectpicker('refresh');
+            $('#asignado').html();
         }
     });
 }
@@ -201,6 +211,21 @@ function obtener_asignado() {
             console.log(data)
             $('#ultimo_asignado').val(data.detalles.id_persona);
             $('#nombre_ultimo_asignado').val(data.detalles.nombre);
+        }
+    });
+}
+
+function mostrar_asignado() {
+    let idcatalogo=$('#categoria').val();
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=mostrar_asignado",
+        type: "POST",
+        data: {idcatalogo:idcatalogo},
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+            $('#asignado').html(data.detalles.nombre);
+   
         }
     });
 }
@@ -368,6 +393,13 @@ function eliminar_archivo(item) {
 
 
 function insertar_detalle_requerimiento() {
+    if ($('#servicio').val() < 1) {
+        Toast.fire({
+            icon: 'info',
+            title: 'Debe seleccionar Servicio'
+        });
+        return false;
+    }
     if ($('#categoria').val() < 1) {
         Toast.fire({
             icon: 'info',
@@ -474,6 +506,7 @@ function llenar_tabla_requerimientos() {
     let fdesde = $('#fdesde').val();
     let fhasta = $('#fhasta').val();
     let fservicio = $('#fservicio').val() == null ? "" : $('#fservicio').val().toString();
+    let fasignado=$('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
     let festado = $('#festado').val();
 
 
@@ -501,7 +534,7 @@ function llenar_tabla_requerimientos() {
             {
                 url: '../ajax/soporte_tecnico.php?op=listar_requerimientos&id=' + OrigenSoporte,
                 type: "get",
-                data: { "fdesde": fdesde, "fhasta": fhasta, "fservicio": fservicio, "festado": festado },
+                data: { "fdesde": fdesde, "fhasta": fhasta, "fservicio": fservicio, "festado": festado,"fasignado":fasignado },
                 dataType: "json",
                 error: function (e) {
                     console.log(e.responseText);
@@ -599,6 +632,7 @@ function Lista_Det_Requerimiento() {
     let fdesde = $('#fdesde').val();
     let fhasta = $('#fhasta').val();
     let fservicio = $('#fservicio').val() == null ? "" : $('#fservicio').val().toString();
+    let fasignado=$('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
     let festado = $('#festado').val();
 
     tablaDetallesRequerimientos = $('#tabla_det_requerimientos').dataTable({
@@ -637,7 +671,7 @@ function Lista_Det_Requerimiento() {
             // { data: '6', name: 'opt', className: "text-center" },
             // { data: '7', name: 'opt', className: "text-center" },
             // { data: '8', name: 'opt', className: "text-right" },
-            // { data: '9', name: 'opt', className: "text-center" },
+             { data: '9', name: 'opt', className: "text-center" },
             // { data: '10', name: 'opt', className: "text-center" },
             // { data: '11', name: 'opt', className: "text-right" },
             { data: '12', name: 'opt', className: "text-right" },
@@ -658,6 +692,7 @@ function Lista_Det_Requerimiento() {
                 "fhasta": fhasta,
                 "fservicio": fservicio,
                 "festado": festado,
+                "fasignado":fasignado
             },
             type: "get",
             dataType: "json",
@@ -892,6 +927,19 @@ function eliminar_requerimientos_vacios() {
         dataType: "json",
         success: function (data) {
             console.log(data)
+        }
+    });
+}
+
+function listar_personas_asignar() {
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=select_personas_asignar",
+        type: "POST",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            $("#fasignado").html(data.html);
+            $("#fasignado").selectpicker('refresh');
         }
     });
 }

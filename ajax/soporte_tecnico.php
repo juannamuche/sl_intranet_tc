@@ -110,10 +110,12 @@ switch ($_GET["op"]) {
 		$array = array();
 		$option = "";
 
-		$rspta = $soporte->select_catalogo_soporte(87);
+		$rspta = $soporte->select_catalogo_soporte();
 
-		$option .= '<option value="' . $rspta['id_catalogo'] . '">' . $rspta['nombre'] . '</option>';
-
+		$option .= '<option value="0" disabled selected>Seleccione un Servicio</option>';
+		while ($reg = $rspta->fetch_object()) {
+			$option .= '<option value="' . $reg->id_catalogo . '">' . $reg->nombre . '</option>';
+		}
 		$array = array(
 			"status" => true,
 			"html" => $option
@@ -123,11 +125,11 @@ switch ($_GET["op"]) {
 		break;
 
 	case 'sub_catalogo_soporte_listar':
-
+		$idcatalogo = isset($_POST["idcatalogo"]) ? limpiarCadena($_POST["idcatalogo"]) : "";
 		$array = array();
 		$option = "";
 
-		$rspta = $soporte->select_subcatalogo_soporte(87);
+		$rspta = $soporte->select_subcatalogo_soporte($idcatalogo);
 
 		$option .= '<option value="0" disabled selected>Seleccione una Categoria</option>';
 		while ($reg = $rspta->fetch_object()) {
@@ -147,7 +149,7 @@ switch ($_GET["op"]) {
 		$centro_utilidad = isset($_POST["centro_utilidad"]) ? limpiarCadena($_POST["centro_utilidad"]) : "";
 		$centro_costo = isset($_POST["centro_costo"]) ? limpiarCadena($_POST["centro_costo"]) : "";
 		$sede = isset($_POST["sede"]) ? limpiarCadena($_POST["sede"]) : "";
-	
+
 		$importancia = "";
 		$origen = 15;
 
@@ -221,14 +223,14 @@ switch ($_GET["op"]) {
 	case 'insertar_requerimiento_detalles':
 		$array = array();
 		$id_requerimiento = isset($_POST["id_requerimiento"]) ? limpiarCadena($_POST["id_requerimiento"]) : "";
-		$catalogo = 87;
+		$catalogo = isset($_POST["servicio"]) ? limpiarCadena($_POST["servicio"]) : "";
 		$detalle = isset($_POST["detalle_requerimiento"]) ? limpiarCadena($_POST["detalle_requerimiento"]) : "";
 		$plazo = isset($_POST["plazo"]) ? limpiarCadena($_POST["plazo"]) : "";
 		$categoria = isset($_POST["categoria"]) ? limpiarCadena($_POST["categoria"]) : "";
-		$asignado= isset($_POST["asignado"]) ? limpiarCadena($_POST["asignado"]) : "";
+		$asignado = isset($_POST["asignado"]) ? limpiarCadena($_POST["asignado"]) : "";
 		$persona = $_SESSION['persona_id'];
 
-		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona,1,$asignado);
+		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona, 1, $asignado);
 
 
 		if (!empty($rspta)) {
@@ -263,27 +265,51 @@ switch ($_GET["op"]) {
 		echo json_encode($array);
 		break;
 
-		case 'obtener_asignado':
-            $array = array();
-   
-            $rspta = $soporte->obtener_asignado(87);
-            if (!empty($rspta)) {
-                $array = array(
-                    "status" => true,
-                    "detalles" => $rspta,
-                    "ico" => "success",
-                    "msg" => "tiene detalles."
-                );
-            } else {
-                $array = array(
-                    "status" => false,
-                    "detalles" => 0,
-                    "ico" => "error",
-                    "msg" => "vacio."
-                );
-            }
-            echo json_encode($array);
-            break;
+	case 'obtener_asignado':
+		$array = array();
+
+		$rspta = $soporte->obtener_asignado(63);
+		if (!empty($rspta)) {
+			$array = array(
+				"status" => true,
+				"detalles" => $rspta,
+				"ico" => "success",
+				"msg" => "tiene detalles."
+			);
+		} else {
+			$array = array(
+				"status" => false,
+				"detalles" => 0,
+				"ico" => "error",
+				"msg" => "vacio."
+			);
+		}
+		echo json_encode($array);
+		break;
+
+	case 'mostrar_asignado':
+		$id = isset($_POST["idcatalogo"]) ? limpiarCadena($_POST["idcatalogo"]) : "";
+
+		$array = array();
+
+		$rspta = $soporte->obtener_asignado($id);
+		if (!empty($rspta)) {
+			$array = array(
+				"status" => true,
+				"detalles" => $rspta,
+				"ico" => "success",
+				"msg" => "tiene detalles."
+			);
+		} else {
+			$array = array(
+				"status" => false,
+				"detalles" => 0,
+				"ico" => "error",
+				"msg" => "vacio."
+			);
+		}
+		echo json_encode($array);
+		break;
 
 	case 'listar_tabla_detalles':
 		$id_requerimiento = isset($_GET["id"]) ? limpiarCadena($_GET["id"]) : "";
@@ -325,9 +351,10 @@ switch ($_GET["op"]) {
 		$fecha_inicio = isset($_GET["fdesde"]) ? limpiarCadena($_GET["fdesde"]) : "";
 		$fecha_fin = isset($_GET["fhasta"]) ? limpiarCadena($_GET["fhasta"]) : "";
 		$servicio = isset($_GET["fservicio"]) ? limpiarCadena($_GET["fservicio"]) : "";
+		$asignado = isset($_GET["fasignado"]) ? limpiarCadena($_GET["fasignado"]) : "";
 		$estado = isset($_GET["festado"]) ? limpiarCadena($_GET["festado"]) : "";
 		$persona = $_SESSION['persona_id'];
-		$rspta = $soporte->listar_requerimientos($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio);
+		$rspta = $soporte->listar_requerimientos($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio,$asignado);
 
 		$data = array();
 		while ($reg = $rspta->fetch_object()) {
@@ -428,11 +455,12 @@ switch ($_GET["op"]) {
 		$fecha_inicio = isset($_GET["fdesde"]) ? limpiarCadena($_GET["fdesde"]) : "";
 		$fecha_fin = isset($_GET["fhasta"]) ? limpiarCadena($_GET["fhasta"]) : "";
 		$servicio = isset($_GET["fservicio"]) ? limpiarCadena($_GET["fservicio"]) : "";
+		$asignado = isset($_GET["fasignado"]) ? limpiarCadena($_GET["fasignado"]) : "";
 		$estado = isset($_GET["festado"]) ? limpiarCadena($_GET["festado"]) : "";
 		$persona = $_SESSION['persona_id'];
 		$data = array();
 
-		$rspta = $soporte->soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio);
+		$rspta = $soporte->soporte_persona_detalle_listar($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio, $asignado);
 
 		$data = array();
 		while ($reg = $rspta->fetch_object()) {
@@ -497,7 +525,7 @@ switch ($_GET["op"]) {
 			}
 		} else if ($id_detalle_requerimiento > 0) {
 
-			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['persona_id'],2);
+			$rspta = $soporte->anular_requerimiento_detalle($id_detalle_requerimiento, 0/*sin usuario */, $comentario, $_SESSION['persona_id'], 2);
 			if (!empty($rspta)) {
 				$array = array(
 					"status" => true,
@@ -622,6 +650,21 @@ switch ($_GET["op"]) {
 
 			);
 		}
+		echo json_encode($array);
+		break;
+
+	case "select_personas_asignar":
+		$option = "";
+		$array = array();
+		$rspta = $soporte->select_personas_asignar();
+		$option .= '<option value="0" selected>TODOS</option>';
+		while ($reg = $rspta->fetch_object()) {
+			$option .= '<option value="' . $reg->id_persona . '">' . $reg->nombre . '</option>';
+		}
+		$array = array(
+			"status" => true,
+			"html" => $option
+		);
 		echo json_encode($array);
 		break;
 }

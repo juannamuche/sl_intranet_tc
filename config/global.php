@@ -6,7 +6,7 @@ define("DB_HOST","10.0.0.15");
 //Nombre de la base de datos
 
 define("DB_NAME", "sl_prueba_task"); // pruebas
-//define("DB_NAME", "sl_prueba_task_v2");//produccion
+//define("DB_NAME", "sl_task");//produccion
 
 //Usuario de la base de datos
 define("DB_USERNAME", "root");

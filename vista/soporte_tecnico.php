@@ -177,16 +177,16 @@ if (!isset($_SESSION["persona_id"])) {
                                 <div class="card-body card-block" id="div-requerimientos">
                                     <div class="p-md-3">
                                         <div class="row">
-                                   
-                                                <div class="col-6">
-                                                    <button class="btn btn-success btn-sm mb-3" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Registrar Requerimiento</button>
-                                                </div>
-                                                <div class="col-6 d-flex justify-content-end justify-content-md-end">
-                                                    <button class="btn btn-info btn-sm mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                                        <i class="fa fa-filter"></i> Filtros
-                                                    </button>
-                                                </div>
-                                           
+
+                                            <div class="col-6">
+                                                <button class="btn btn-success btn-sm mb-3" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Registrar Requerimiento</button>
+                                            </div>
+                                            <div class="col-6 d-flex justify-content-end justify-content-md-end">
+                                                <button class="btn btn-info btn-sm mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="fa fa-filter"></i> Filtros
+                                                </button>
+                                            </div>
+
                                             <div class="collapse col-12" id="collapseExample">
                                                 <div class="card card-body" style="max-width:100% !important">
                                                     <form id="filtros">
@@ -198,6 +198,12 @@ if (!isset($_SESSION["persona_id"])) {
                                                             <div class="col-lg-4 col-md-4 col-12 mb-3">
                                                                 <label for="fhasta" class="form-label"><strong>Hasta:</strong></label>
                                                                 <input type="date" class="form-control border-info" id="fhasta" name="fhasta" value="<?php echo $fecha_actual ?>">
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-12 mb-3">
+                                                                <label for="fservicio" class="form-label"><strong>Asignado:</strong></label>
+                                                                <select class="form-control form-select selectpicker" data-actions-box="true" multiple data-live-search="true" id="fasignado" name="fasignado">
+                                                                    <option value="-1">TODOS</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -270,9 +276,9 @@ if (!isset($_SESSION["persona_id"])) {
                                                     <th>F.Termino</th>
                                                     <!-- <th>N°Reprog.</th>
                                                     <th>Ult. F.Reprog.</th>
-                                                    <th>Solicitado</th>
+                                                    <th>Solicitado</th> -->
                                                     <th>Asignado</th>
-                                                    <th>Depende</th>
+                                                    <!-- <th>Depende</th>
                                                     <th>Delegado</th> -->
                                                     <th>C. Utilidad</th>
                                                     <th>C. Costo</th>
@@ -386,15 +392,21 @@ if (!isset($_SESSION["persona_id"])) {
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <!-- <div class="col-12 col-lg-6 mb-3">
-                                <label for="tipo_servicio" class="form-label"><strong>Tipo de Servicio:(*)</strong></label>
-                                <select class="form-control form-select selectpicker show-tick border-info" id="tipo_servicio" name="tipo_servicio" disabled></select>
-                            </div> -->
+                                    <div class="col-12 col-lg-12 mb-3">
+                                        <label for="servicio" class="form-label"><strong>Tipo de Servicio:(*)</strong></label>
+                                        <select class="form-control form-select selectpicker show-tick border-info" id="servicio" name="servicio" onchange="listar_sub_catalogo_soporte()"></select>
+                                    </div>
+
                                     <div class="col-12 col-lg-12 mb-3">
                                         <label for="categoria" class="form-label"><strong>Categoria:(*)</strong></label>
-                                        <select class="form-control form-select selectpicker show-tick border-info" data-live-search="true" data-size="10" id="categoria" name="categoria" required>
+                                        <select class="form-control form-select selectpicker show-tick border-info" data-live-search="true" data-size="10" id="categoria" name="categoria" onchange="mostrar_asignado()">
                                             <option value="-1" selected disabled>Seleccione una Categoria</option>
                                         </select>
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <label for="detalle_requerimiento" class="form-label"><strong>Asignado</strong></label>
+                                        <label class="form-control border-info" id="asignado" name="asignado"></label>
                                     </div>
                                 </div>
                                 <div class="row">
