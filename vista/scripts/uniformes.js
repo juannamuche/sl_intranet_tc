@@ -213,142 +213,142 @@ function envio() {
 }
 
 function guardar() {
-    if ($('#sexo').val() == "MASCULINO") {
-        if (document.getElementById('pechovaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de pecho'
-            });
-            return false;
-        }
-        if (document.getElementById('cinturavaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cintura'
-            });
-            return false;
-        }
-        if (document.getElementById('hombrovaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de hombro'
-            });
-            return false;
-        }
-        if (document.getElementById('lcuerpovaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de cuerpo'
-            });
-            return false;
-        }
-        if (document.getElementById('lmangavaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de manga'
-            });
-            return false;
-        }
-        if (document.getElementById('pcinturavaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cintura de pantalon'
-            });
-            return false;
-        }
-        if (document.getElementById('pcaderavaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cadera'
-            });
-            return false;
-        }
-        if (document.getElementById('pmuslovaron').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de muslo'
-            });
-            return false;
-        }
-        if (document.getElementById('lpiernasvaron').value == "") {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de piernas'
-            });
-            return false;
-        }
-    } else {
-        if (document.getElementById('pechomujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de pecho'
-            });
-            return false;
-        }
-        if (document.getElementById('cinturamujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cintura'
-            });
-            return false;
-        }
-        if (document.getElementById('lcuerpomujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo del cuerpo'
-            });
-            return false;
-        }
-        if (document.getElementById('lmangamujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de manga'
-            });
-            return false;
-        }
-        if (document.getElementById('pcinturamujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cintura de pantalon'
-            });
-            return false;
-        }
-        if (document.getElementById('pcaderamujer').value == 0) {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de cadera'
-            });
-            return false;
-        }
-        if (document.getElementById('lpiernasmujer').value == '') {
-            Toast.fire({
-                icon: 'info',
-                title: 'Debe ingresar medida de largo de piernas'
-            });
-            return false;
-        }
-    }
-    if (document.getElementById('calzado').value == 0) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe ingresar talla de calzado'
-        });
-        return false;
-    }
-    if (document.getElementById('casaca').value == 0) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe ingresar talla de casaca'
-        });
-        return false;
-    }
-    if (document.getElementById('chaleco').value == 0) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe ingresar talla de chaleco'
-        });
-        return false;
-    }
+    //if ($('#sexo').val() == "MASCULINO") {
+        // if (document.getElementById('pechovaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de pecho'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('cinturavaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cintura'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('hombrovaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de hombro'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lcuerpovaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de cuerpo'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lmangavaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de manga'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('pcinturavaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cintura de pantalon'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('pcaderavaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cadera'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('pmuslovaron').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de muslo'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lpiernasvaron').value == "") {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de piernas'
+        //     });
+        //     return false;
+        // }
+  //  } else {
+        // if (document.getElementById('pechomujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de pecho'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('cinturamujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cintura'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lcuerpomujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo del cuerpo'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lmangamujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de manga'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('pcinturamujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cintura de pantalon'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('pcaderamujer').value == 0) {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de cadera'
+        //     });
+        //     return false;
+        // }
+        // if (document.getElementById('lpiernasmujer').value == '') {
+        //     Toast.fire({
+        //         icon: 'info',
+        //         title: 'Debe ingresar medida de largo de piernas'
+        //     });
+        //     return false;
+        // }
+ //   }
+    // if (document.getElementById('calzado').value == 0) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe ingresar talla de calzado'
+    //     });
+    //     return false;
+    // }
+    // if (document.getElementById('casaca').value == 0) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe ingresar talla de casaca'
+    //     });
+    //     return false;
+    // }
+    // if (document.getElementById('chaleco').value == 0) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe ingresar talla de chaleco'
+    //     });
+    //     return false;
+    // }
     if (document.getElementById('ubicacion').value == 0) {
         Toast.fire({
             icon: 'info',
