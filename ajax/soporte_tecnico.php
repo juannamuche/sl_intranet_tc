@@ -11,7 +11,7 @@ $soporte = new Soporte();
 
 switch ($_GET["op"]) {
 
-		/*************************funciones de acceso a soporte */
+	/*************************funciones de acceso a soporte */
 	case "login_soporte":
 		$dni = isset($_POST["dni"]) ? limpiarCadena($_POST["dni"]) : "";
 		$celular = isset($_POST["celular"]) ? limpiarCadena($_POST["celular"]) : "";
@@ -228,9 +228,16 @@ switch ($_GET["op"]) {
 		$plazo = isset($_POST["plazo"]) ? limpiarCadena($_POST["plazo"]) : "";
 		$categoria = isset($_POST["categoria"]) ? limpiarCadena($_POST["categoria"]) : "";
 		$asignado = isset($_POST["asignado"]) ? limpiarCadena($_POST["asignado"]) : "";
+		$urgente = isset($_POST["Det_Req_EsUrgente"]) ? limpiarCadena($_POST["Det_Req_EsUrgente"]) : 0;
+		$comentarioUrgente = isset($_POST["CommentUrgene"]) ? limpiarCadena($_POST["CommentUrgene"]) : "";
+		$tiposolicitante = isset($_POST["tiposolicitante"]) ? limpiarCadena($_POST["tiposolicitante"]) : 0;
+        $persona_contacto = isset($_POST["persona_contacto"]) ? limpiarCadena($_POST["persona_contacto"]) : 0;
+        $contacto_externo = isset($_POST["contacto_externo"]) ? limpiarCadena($_POST["contacto_externo"]) : "";
+        $telefono_contacto = isset($_POST["telefono_contacto"]) ? limpiarCadena($_POST["telefono_contacto"]) : "";
+        $correo_contacto = isset($_POST["correo_contacto"]) ? limpiarCadena($_POST["correo_contacto"]) : "";
 		$persona = $_SESSION['persona_id'];
 
-		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona, 1, $asignado);
+		$rspta = $soporte->insertar_detalle_requerimiento($id_requerimiento, $catalogo, $categoria, $detalle, $plazo, $persona, 1, $asignado, $urgente, $comentarioUrgente,$tiposolicitante, $persona_contacto, $contacto_externo, $telefono_contacto, $correo_contacto);
 
 
 		if (!empty($rspta)) {
@@ -354,7 +361,7 @@ switch ($_GET["op"]) {
 		$asignado = isset($_GET["fasignado"]) ? limpiarCadena($_GET["fasignado"]) : "";
 		$estado = isset($_GET["festado"]) ? limpiarCadena($_GET["festado"]) : "";
 		$persona = $_SESSION['persona_id'];
-		$rspta = $soporte->listar_requerimientos($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio,$asignado);
+		$rspta = $soporte->listar_requerimientos($fecha_inicio, $fecha_fin, $id_origen, $estado, $persona, $servicio, $asignado);
 
 		$data = array();
 		while ($reg = $rspta->fetch_object()) {
@@ -464,7 +471,9 @@ switch ($_GET["op"]) {
 
 		$data = array();
 		while ($reg = $rspta->fetch_object()) {
-
+			if ($reg->Asignado == "") {
+				$reg->Asignado = "PENDIENTE DE ASIGNACION";
+			}
 			$data[] = array(
 				"0" => $reg->Id_detalle_requerimiento,
 				"1" => $reg->ServicioNombre,
@@ -667,5 +676,67 @@ switch ($_GET["op"]) {
 		);
 		echo json_encode($array);
 		break;
+
+		case "select_solicitante":
+
+			$option = "";
+			$array = array();
+			$rspta = $soporte->select_solicitante();
+			$option .= '<option value="0" selected disabled>SELECCIONE UNA PERSONA</option>';
+			while ($reg = $rspta->fetch_object()) {
+				$option .= '<option value=' . $reg->id_persona . '>' . $reg->nombre . '</option>';
+			}
+			$array = array(
+				"status" => true,
+				"html" => $option
+			);
+			echo json_encode($array);
+			break;
+	
+		case "datosSolicitante":
+			$array = array();
+			$id = isset($_POST["id"]) ? limpiarCadena($_POST["id"]) : 0;
+			$rspta = $soporte->datosSolicitante($id);
+	
+			if (!empty($rspta)) {
+				$array = array(
+					"status" => true,
+					"IdRetorno" => $rspta,
+					"ico" => "success",
+					"msg" => "ok"
+				);
+			} else {
+				$array = array(
+					"status" => false,
+					"IdRetorno" => 0,
+					"ico" => "error",
+					"msg" => "error"
+				);
+			}
+			echo json_encode($array);
+			break;
+
+			case "misDatos":
+				$array = array();
+				$id = $_SESSION['persona_id'];
+				$rspta = $soporte->datosSolicitante($id);
+		
+				if (!empty($rspta)) {
+					$array = array(
+						"status" => true,
+						"IdRetorno" => $rspta,
+						"ico" => "success",
+						"msg" => "ok"
+					);
+				} else {
+					$array = array(
+						"status" => false,
+						"IdRetorno" => 0,
+						"ico" => "error",
+						"msg" => "error"
+					);
+				}
+				echo json_encode($array);
+				break;
 }
 ob_end_flush();

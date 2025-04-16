@@ -60,9 +60,9 @@ class Soporte
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo,$asignado)
+	public function insertar_detalle_requerimiento($id_requerimiento, $catalogo, $subcatalogo, $detalle, $plazo, $idpersona,$tipo,$asignado,$urgente,$comentariourgente,$tiposolicitante, $persona_contacto, $contacto_externo, $telefono_contacto, $correo_contacto)
 	{
-		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo,$asignado);";
+		$sql = "CALL sp_soporte_requerimiento_detalle_insertar($id_requerimiento,$catalogo,$subcatalogo,'$detalle','$plazo',$idpersona,$tipo,$asignado,$urgente,'$comentariourgente',$tiposolicitante,$persona_contacto,'$contacto_externo','$telefono_contacto','$correo_contacto');";
 		//var_dump($sql);die();
 		return ejecutarConsultaSimpleFila($sql);
 	}
@@ -149,9 +149,21 @@ class Soporte
 	}
 	
 	public function select_personas_asignar(){
-		$sql = "select * from tb_persona where id_persona=330 or id_persona=486 or id_persona=333";
+		$sql = "select p.id_persona,p.nombre from tb_persona p inner join tb_usuario u on u.id_persona=p.id_persona inner join tb_modulo_usuario mu on mu.id_usuario=u.id_usuario where mu.IdModulo=13 and mu.IdRol=9";
 		return ejecutarConsulta($sql);
 	}
 
+	public function select_solicitante()
+	{
+		$sql = "select * from tb_persona where estado=1";
+		return ejecutarConsulta($sql);
+	}
 
+	public function datosSolicitante($id)
+	{
+		$sql = "select * from tb_persona where id_persona=$id";
+		return ejecutarConsultaSimpleFila($sql);
+	}
+
+	
 }

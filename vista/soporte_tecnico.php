@@ -237,7 +237,7 @@ if (!isset($_SESSION["persona_id"])) {
                                             </div>
                                         </div>
 
-                                        <div class="row p-2">
+                                        <div class="row p-2 d-none">
                                             <h5 class="font-weight-bold d-flex align-items-sm-center">Agrupar requerimientos:</h5>&nbsp;&nbsp;
                                             <div class="switch-field">
 
@@ -280,9 +280,9 @@ if (!isset($_SESSION["persona_id"])) {
                                                     <th>Asignado</th>
                                                     <!-- <th>Depende</th>
                                                     <th>Delegado</th> -->
-                                                    <th>C. Utilidad</th>
+                                                    <!-- <th>C. Utilidad</th>
                                                     <th>C. Costo</th>
-                                                    <th>Sede</th>
+                                                    <th>Sede</th> -->
                                                     <!-- <th>Detalle</th> -->
                                                     <th>Detalle</th>
                                                     <!-- <th>Prioridad</th> -->
@@ -304,7 +304,9 @@ if (!isset($_SESSION["persona_id"])) {
                                             <input type="hidden" id="ultimo_asignado" name="ultimo_asignado" value="0">
                                             <input type="hidden" id="nombre_ultimo_asignado" name="nombre_ultimo_asignado" value="">
                                             <div class="row mb-3">
-                                                <div class="col-lg-4 col-md-4 col-12 mb-3">
+                                            <div class="col-lg-4 col-md-4 col-12 mb-3 font-weight-bold"><span style="font-size:1rem">Mi numero de contacto:</span><span id="sptelefono" style="font-size:1rem"></span></div>
+                                            <div class="col-lg-4 col-md-4 col-12 mb-3 font-weight-bold"><span style="font-size:1rem">Mi email de contacto:</span><span id="spemail" style="font-size:1rem"></span></div>
+                                                <!-- <div class="col-lg-4 col-md-4 col-12 mb-3">
                                                     <label for="centro_utilidad" class="form-label"><strong>Centro de Utilidad:(*)</strong></label>
                                                     <select class="form-control form-select selectpicker border-info" data-live-search="true" data-size="10" id="centro_utilidad" name="centro_utilidad" onchange="listar_centro_costo()">
 
@@ -322,17 +324,16 @@ if (!isset($_SESSION["persona_id"])) {
                                                     <select class="form-control form-select selectpicker border-info" data-live-search="true" data-size="10" id="sede" name="sede">
                                                         <option value="0" disabled selected>Seleccione una Sede</option>
                                                     </select>
-                                                </div>
+                                                </div> -->
                                                 <div class="row ">
                                                     <div class="col-lg-12 col-md-12 col-12 d-flex align-items-end">
                                                         <div class="col-12 mb-3">
-                                                            <!-- <button class="btn btn-primary" type="button" onclick="BotonNuevo()" id="agregar_requerimiento_nuevo" style="display: none;"><i class="fa fa-save"></i> Nuevo</button> -->
+
                                                             <button class="btn btn-primary" type="button" id="agregar_requerimiento"><i class="fa fa-save"></i> Guardar</button>
                                                             <button class="btn btn-danger" type="button" id="btncancelar" onclick="cancelarform()"><i class="fa fa-arrow-circle-left"></i> Volver</button>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </form>
 
@@ -393,6 +394,50 @@ if (!isset($_SESSION["persona_id"])) {
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-12 col-lg-12 mb-3">
+                                        <label for="tiposolicitante" class="form-label"><strong>¿Para quien es el soporte?</strong></label>
+                                        <select class="form-control form-select selectpicker" id="tiposolicitante" name="tiposolicitante" required onchange="tipoSolicitante()">
+                                            <option value="0" selected disabled>Seleccione tipo de solicitud</option>
+                                            <option value="1">Propio</option>
+                                            <option value="2">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" id="divRadios">
+                                    <div class="switch-field col-12 col-md-4">
+                                        <input type="radio" id="radio-uno" name="radio-usuario" value="1" checked>
+                                        <label for="radio-uno">Usuario Interno</label>
+
+                                        <input type="radio" id="radio-dos" name="radio-usuario" value="0">
+                                        <label for="radio-dos">Usuario Externo</label>
+                                    </div>
+
+                                </div>
+                                <div class="row" id="divInterno">
+                                    <div class="col-12 col-lg-12 mb-3">
+                                        <label for="persona_contacto" class="form-label"><strong>Persona a contactar:(*)</strong></label>
+                                        <select class="form-control form-select selectpicker show-tick" data-live-search="true" data-size="10" id="persona_contacto" name="persona_contacto" onchange="datosSolicitante()">
+                                            <option value="-1" selected disabled>Seleccione una Persona</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" id="divExterno">
+                                    <div class="col-12 mb-3">
+                                        <label for="contacto_externo" class="form-label"><strong>Persona a contactar:(*)</strong></label>
+                                        <input type="text" class="form-control" id="contacto_externo" name="contacto_externo">
+                                    </div>
+                                </div>
+                                <div class="row" id="divTelefonoContacto" style="display:none">
+                                    <div class="col-6 mb-3">
+                                        <label for="telefono_contacto" class="form-label"><strong>Telefono de contacto:(*)</strong></label>
+                                        <input type="text" class="form-control" id="telefono_contacto" name="telefono_contacto">
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="correo_contacto" class="form-label"><strong>Correo de contacto:(*)</strong></label>
+                                        <input type="text" class="form-control" id="correo_contacto" name="correo_contacto">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-lg-12 mb-3">
                                         <label for="servicio" class="form-label"><strong>Tipo de Servicio:(*)</strong></label>
                                         <select class="form-control form-select selectpicker show-tick border-info" id="servicio" name="servicio" onchange="listar_sub_catalogo_soporte()"></select>
                                     </div>
@@ -404,10 +449,10 @@ if (!isset($_SESSION["persona_id"])) {
                                         </select>
                                     </div>
 
-                                    <div class="col-12 mb-3">
+                                    <!-- <div class="col-12 mb-3">
                                         <label for="detalle_requerimiento" class="form-label"><strong>Asignado</strong></label>
                                         <label class="form-control border-info" id="asignado" name="asignado"></label>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row">
                                     <div class="col-12 mb-3">
@@ -415,9 +460,19 @@ if (!isset($_SESSION["persona_id"])) {
                                         <textarea class="form-control border-info" id="detalle_requerimiento" name="detalle_requerimiento" rows="2" required placeholder="INGRESE DETALLE DE REQUERIMIENTO"></textarea>
                                     </div>
                                 </div>
-
                                 <div class="row">
-
+                                    <div class="col-4 mb-3">
+                                        <label class="form-label"><strong>Requerimiento es Urgente</strong></label>
+                                        <input type="checkbox" id="Det_Req_EsUrgente" name="Det_Req_EsUrgente" value="1">
+                                    </div>
+                                </div>
+                                <div class="row" id="DivSeleccionGerente2" style="display:none">
+                                    <div class="col-12 col-lg-12 mb-3" style="">
+                                        <label for="CommentUrgene" class="form-label"><strong>Comentario</strong></label>
+                                        <textarea name="CommentUrgene" id="CommentUrgene" class="form-control" placeholder="¿Porque es urgente esta tarea?"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-12 col-lg-6 mb-3">
                                         <label for="plazo" class="form-label"><strong>Fecha de plazo</strong></label>
                                         <input type="date" class="form-control border-info" id="plazo" name="plazo" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">

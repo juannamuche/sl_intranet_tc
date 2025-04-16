@@ -11,15 +11,15 @@ var tablaRequerimientos;
 var tablaDetallesRequerimientos;
 function init() {
     listar_personas_asignar();
-    listar_catalogo_soporte(); 
+    listar_catalogo_soporte();
     $("#lista-requerimientos").hide();
     $("#div-anadir").hide();
     $("#agregar_requerimiento_detalle").prop("disabled", true);
     listar_centro_utilidad();
     llenar_tabla_requerimientos();
     Lista_Det_Requerimiento();
-   
-
+    select_solicitante();
+misDatos();
 }
 
 
@@ -54,7 +54,10 @@ $("#btnlogin").on('click', function (e) {
                 icon: data.ico,
                 title: data.msg
             });
-            location.href = "portal.php";
+            if (data.status) {
+                location.href = "portal.php";
+            }
+
         }
     });
 })
@@ -117,6 +120,21 @@ function limpiar_detalles() {
     $("#subir_archivo").val('');
     $("#tb_archivos").html("");
     $("#asignado").html("");
+    $("#Det_Req_EsUrgente").prop("checked", false);
+    $(`#DivSeleccionGerente2`).hide();
+    $("#CommentUrgene").html("");
+
+    $("#tiposolicitante").val("0");
+    $("#tiposolicitante").selectpicker('refresh');
+    $("#divRadios").hide();
+    $("#divInterno").hide();
+    $("#persona_contacto").val("0");
+    $("#persona_contacto").selectpicker('refresh');
+    $("#divExterno").hide();
+    $("#contacto_externo").val("");
+    $("#divTelefonoContacto").hide();
+    $("#telefono_contacto").val("");
+    $("#correo_contacto").val("");
     document.querySelector('#div_tabla_archivos').style.display = "none";
 }
 function listar_centro_utilidad() {
@@ -184,11 +202,11 @@ function listar_catalogo_soporte() {
 
 function listar_sub_catalogo_soporte() {
 
-    let idcatalogo=$('#servicio').val();
+    let idcatalogo = $('#servicio').val();
     $.ajax({
         url: "../ajax/soporte_tecnico.php?op=sub_catalogo_soporte_listar",
         type: "POST",
-        data: {idcatalogo:idcatalogo},
+        data: { idcatalogo: idcatalogo },
         dataType: "json",
         success: function (data) {
             console.log(data)
@@ -216,16 +234,16 @@ function obtener_asignado() {
 }
 
 function mostrar_asignado() {
-    let idcatalogo=$('#categoria').val();
+    let idcatalogo = $('#categoria').val();
     $.ajax({
         url: "../ajax/soporte_tecnico.php?op=mostrar_asignado",
         type: "POST",
-        data: {idcatalogo:idcatalogo},
+        data: { idcatalogo: idcatalogo },
         dataType: "json",
         success: function (data) {
             console.log(data)
             $('#asignado').html(data.detalles.nombre);
-   
+
         }
     });
 }
@@ -236,35 +254,35 @@ $("#agregar_requerimiento").on('click', function (e) {
     let sede = $("#sede").val();
     //let id_requerimiento = $("#id_requerimiento").val();
 
-    if (centro_utilidad < 1) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe seleccionar Centro de Utilidad'
-        });
-        return false;
-    }
-    if (centro_costo < 1) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe seleccionar Centro de Costo'
-        });
-        return false;
-    }
-    if (sede < 1) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Debe seleccionar una Sede'
-        });
-        return false;
-    }
+    // if (centro_utilidad < 1) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe seleccionar Centro de Utilidad'
+    //     });
+    //     return false;
+    // }
+    // if (centro_costo < 1) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe seleccionar Centro de Costo'
+    //     });
+    //     return false;
+    // }
+    // if (sede < 1) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Debe seleccionar una Sede'
+    //     });
+    //     return false;
+    // }
 
     $.ajax({
         url: "../ajax/soporte_tecnico.php?op=insertar_requerimiento",
         type: "POST",
         data: {
-            "centro_utilidad": centro_utilidad,
-            "centro_costo": centro_costo,
-            "sede": sede
+            "centro_utilidad": 0,
+            "centro_costo":0,
+            "sede": 0
             // "id_requerimiento":id_requerimiento
         },
         dataType: "json",
@@ -393,6 +411,41 @@ function eliminar_archivo(item) {
 
 
 function insertar_detalle_requerimiento() {
+    
+    if ($(`#tiposolicitante`).val() == 0 || $(`#tiposolicitante`).val() == '' || $(`#tiposolicitante`).val() == null) {
+        Toast.fire({
+            icon: "info",
+            title: "Seleccione tipo de Solicitud"
+        });
+        return false
+    }
+    if ($(`#divInterno`).is(':visible')) {
+        if ($(`#persona_contacto`).val() == 0 || $(`#persona_contacto`).val() == '' || $(`#persona_contacto`).val() == null) {
+            Toast.fire({
+                icon: "info",
+                title: "Seleccione persona a contactar"
+            });
+            return false
+        }
+    }
+    if ($(`#divExterno`).is(':visible')) {
+        if ($(`#contacto_externo`).val() == null || $(`#contacto_externo`).val() == '') {
+            Toast.fire({
+                icon: "info",
+                title: "Ingrese persona a contactar!"
+            });
+            return false
+        }
+    }
+    if ($(`#divTelefonoContacto`).is(':visible') && $(`#divExterno`).is(':visible')) {
+        if ($(`#telefono_contacto`).val() == 0 || $(`#telefono_contacto`).val() == '') {
+            Toast.fire({
+                icon: "info",
+                title: "Ingrese telefono de contacto!"
+            });
+            return false
+        }
+    }
     if ($('#servicio').val() < 1) {
         Toast.fire({
             icon: 'info',
@@ -421,7 +474,15 @@ function insertar_detalle_requerimiento() {
         });
         return false;
     }
-
+    if ($('#Det_Req_EsUrgente').prop("checked")) {
+        if ($('#CommentUrgene').val() == "") {
+            Toast.fire({
+                icon: 'info',
+                title: 'Debe ingresar comentario urgente'
+            });
+            return false;
+        }
+    }
 
     var formData = new FormData($("#frm_req_logistico_det")[0]);
     formData.append("asignado", $('#ultimo_asignado').val());
@@ -492,7 +553,7 @@ function llenar_tabla_detalles() {
                 }
             },
             Response: true,
-            "scrollX":true,
+            "scrollX": true,
             "bDestroy": true,
             "iDisplayLength": 5,//Paginación
             "order": [[0, "desc"]]//Ordenar (columna,orden)
@@ -506,7 +567,7 @@ function llenar_tabla_requerimientos() {
     let fdesde = $('#fdesde').val();
     let fhasta = $('#fhasta').val();
     let fservicio = $('#fservicio').val() == null ? "" : $('#fservicio').val().toString();
-    let fasignado=$('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
+    let fasignado = $('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
     let festado = $('#festado').val();
 
 
@@ -534,7 +595,7 @@ function llenar_tabla_requerimientos() {
             {
                 url: '../ajax/soporte_tecnico.php?op=listar_requerimientos&id=' + OrigenSoporte,
                 type: "get",
-                data: { "fdesde": fdesde, "fhasta": fhasta, "fservicio": fservicio, "festado": festado,"fasignado":fasignado },
+                data: { "fdesde": fdesde, "fhasta": fhasta, "fservicio": fservicio, "festado": festado, "fasignado": fasignado },
                 dataType: "json",
                 error: function (e) {
                     console.log(e.responseText);
@@ -632,7 +693,7 @@ function Lista_Det_Requerimiento() {
     let fdesde = $('#fdesde').val();
     let fhasta = $('#fhasta').val();
     let fservicio = $('#fservicio').val() == null ? "" : $('#fservicio').val().toString();
-    let fasignado=$('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
+    let fasignado = $('#fasignado').val() == null ? '' : $('#fasignado').val().toString();
     let festado = $('#festado').val();
 
     tablaDetallesRequerimientos = $('#tabla_det_requerimientos').dataTable({
@@ -671,12 +732,12 @@ function Lista_Det_Requerimiento() {
             // { data: '6', name: 'opt', className: "text-center" },
             // { data: '7', name: 'opt', className: "text-center" },
             // { data: '8', name: 'opt', className: "text-right" },
-             { data: '9', name: 'opt', className: "text-center" },
+            { data: '9', name: 'opt', className: "text-center" },
             // { data: '10', name: 'opt', className: "text-center" },
             // { data: '11', name: 'opt', className: "text-right" },
-            { data: '12', name: 'opt', className: "text-right" },
-            { data: '13', name: 'opt', className: "text-right" },
-            { data: '14', name: 'opt', className: "text-right" },
+        //    { data: '12', name: 'opt', className: "text-right" },
+          //  { data: '13', name: 'opt', className: "text-right" },
+           // { data: '14', name: 'opt', className: "text-right" },
             // { data: '15', name: 'opt', className: "text-right" },
             { data: '16', name: 'opt', className: "text-center" },
             // { data: '17', name: 'opt', className: "text-center" },
@@ -692,7 +753,7 @@ function Lista_Det_Requerimiento() {
                 "fhasta": fhasta,
                 "fservicio": fservicio,
                 "festado": festado,
-                "fasignado":fasignado
+                "fasignado": fasignado
             },
             type: "get",
             dataType: "json",
@@ -940,6 +1001,132 @@ function listar_personas_asignar() {
         success: function (data) {
             $("#fasignado").html(data.html);
             $("#fasignado").selectpicker('refresh');
+        }
+    });
+}
+
+$(`#Det_Req_EsUrgente`).on('change', function () {
+    const checkedEsUrgente = $(this).is(':checked');
+    const plazoInput = $('#plazo');
+
+    if (checkedEsUrgente) {
+        // Calcular fecha máxima (72 horas desde ahora)
+        const today = new Date();
+        const maxDate = new Date(today.getTime() + 72 * 60 * 60 * 1000); // Sumar 72 horas
+        const maxDateString = maxDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+        // Aplicar restricción
+        plazoInput.val(''); // Limpiar valor anterior
+        plazoInput.attr('max', maxDateString);
+
+        $(`#DivSeleccionGerente2`).show();
+
+    } else {
+        // Eliminar restricción y limpiar
+        plazoInput.removeAttr('max');
+        plazoInput.val('');
+        $(`#DivSeleccionGerente2`).hide();
+        $(`#CommentUrgene`).val('');
+    }
+});
+
+function select_solicitante() {
+
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=select_solicitante",
+        type: "POST",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            $("#persona_contacto").html(data.html);
+            $("#persona_contacto").selectpicker('refresh');
+        }
+    });
+}
+
+function tipoSolicitante() {
+    if ($('#tiposolicitante').val() == 2) {
+        $(`#divRadios`).show();
+        $(`#divTelefonoContacto`).show();
+        $(`#divInterno`).show();
+        $(`#divExterno`).hide();
+        $(`#radio-uno`).prop("checked", true);
+        $(`#radio-dos`).prop("checked", false);
+        $(`#telefono_contacto`).prop("disabled", true);
+        $(`#correo_contacto`).prop("disabled", true);
+    } else {
+        $(`#divRadios`).hide();
+        $(`#divTelefonoContacto`).hide();
+        $(`#divInterno`).hide();
+        $(`#divExterno`).hide();
+        $(`#radio-uno`).prop("checked", true);
+        $(`#radio-dos`).prop("checked", false);
+
+    }
+}
+
+document.querySelectorAll('input[name="radio-usuario"]').forEach((elem) => {
+    elem.addEventListener("change", function () {
+        if (this.checked) {
+            $(`#contacto_externo`).val('');
+            $(`#persona_contacto`).val(0);
+            $(`#persona_contacto`).selectpicker('refresh');
+            $(`#telefono_contacto`).val('');
+            $(`#correo_contacto`).val('');
+            if (this.value === "1") {
+                // Acción para Usuario Interno
+                console.log("Usuario Interno seleccionado");
+                $(`#divInterno`).show();
+                $(`#divExterno`).hide();
+                $(`#telefono_contacto`).prop("disabled", true);
+                $(`#correo_contacto`).prop("disabled", true);
+            } else if (this.value === "0") {
+                // Acción para Usuario Externo
+                console.log("Usuario Externo seleccionado");
+                $(`#divInterno`).hide();
+                $(`#divExterno`).show();
+
+                $(`#telefono_contacto`).val('');
+                $(`#correo_contacto`).val('');
+                $(`#telefono_contacto`).prop("disabled", false);
+                $(`#correo_contacto`).prop("disabled", false);
+            }
+        }
+    });
+});
+
+function datosSolicitante(){
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=datosSolicitante",
+        type: "POST",
+        data: { id: $('#persona_contacto').val() },
+        dataType: "json",
+        success: function (data) {
+            console.log(data.IdRetorno)
+            if(data.IdRetorno.celular_trabajo=='' || data.IdRetorno.celular_trabajo==null){
+                $(`#telefono_contacto`).val(data.IdRetorno.celular_trabajo);
+            }else{
+                $(`#telefono_contacto`).val(data.IdRetorno.celular_personal);
+            }       
+            $(`#correo_contacto`).val(data.IdRetorno.email);
+        }
+    });
+}
+
+function misDatos() {
+    $.ajax({
+        url: "../ajax/soporte_tecnico.php?op=misDatos",
+        type: "POST",
+        data: { },
+        dataType: "json",
+        success: function (data) {
+            console.log(data.IdRetorno)
+            if (data.IdRetorno.celular_trabajo == '' || data.IdRetorno.celular_trabajo == null) {
+                $(`#sptelefono`).html(data.IdRetorno.celular_trabajo);
+            } else {
+                $(`#sptelefono`).html(data.IdRetorno.celular_personal);
+            }
+            $(`#spemail`).html(data.IdRetorno.email);
         }
     });
 }
