@@ -412,13 +412,13 @@ function eliminar_archivo(item) {
 
 function insertar_detalle_requerimiento() {
     
-    if ($(`#tiposolicitante`).val() == 0 || $(`#tiposolicitante`).val() == '' || $(`#tiposolicitante`).val() == null) {
-        Toast.fire({
-            icon: "info",
-            title: "Seleccione tipo de Solicitud"
-        });
-        return false
-    }
+    // if ($(`#tiposolicitante`).val() == 0 || $(`#tiposolicitante`).val() == '' || $(`#tiposolicitante`).val() == null) {
+    //     Toast.fire({
+    //         icon: "info",
+    //         title: "Seleccione tipo de Solicitud"
+    //     });
+    //     return false
+    // }
     if ($(`#divInterno`).is(':visible')) {
         if ($(`#persona_contacto`).val() == 0 || $(`#persona_contacto`).val() == '' || $(`#persona_contacto`).val() == null) {
             Toast.fire({
@@ -428,15 +428,15 @@ function insertar_detalle_requerimiento() {
             return false
         }
     }
-    if ($(`#divExterno`).is(':visible')) {
-        if ($(`#contacto_externo`).val() == null || $(`#contacto_externo`).val() == '') {
-            Toast.fire({
-                icon: "info",
-                title: "Ingrese persona a contactar!"
-            });
-            return false
-        }
-    }
+    // if ($(`#divExterno`).is(':visible')) {
+    //     if ($(`#contacto_externo`).val() == null || $(`#contacto_externo`).val() == '') {
+    //         Toast.fire({
+    //             icon: "info",
+    //             title: "Ingrese persona a contactar!"
+    //         });
+    //         return false
+    //     }
+    // }
     if ($(`#divTelefonoContacto`).is(':visible') && $(`#divExterno`).is(':visible')) {
         if ($(`#telefono_contacto`).val() == 0 || $(`#telefono_contacto`).val() == '') {
             Toast.fire({
@@ -1044,52 +1044,84 @@ function select_solicitante() {
     });
 }
 
-function tipoSolicitante() {
-    if ($('#tiposolicitante').val() == 2) {
-        $(`#divRadios`).show();
-        $(`#divTelefonoContacto`).show();
-        $(`#divInterno`).show();
-        $(`#divExterno`).hide();
-        $(`#radio-uno`).prop("checked", true);
-        $(`#radio-dos`).prop("checked", false);
-        $(`#telefono_contacto`).prop("disabled", true);
-        $(`#correo_contacto`).prop("disabled", true);
-    } else {
-        $(`#divRadios`).hide();
-        $(`#divTelefonoContacto`).hide();
-        $(`#divInterno`).hide();
-        $(`#divExterno`).hide();
-        $(`#radio-uno`).prop("checked", true);
-        $(`#radio-dos`).prop("checked", false);
+// function tipoSolicitante() {
+//     if ($('#tiposolicitante').val() == 2) {
+//         $(`#divRadios`).show();
+//         $(`#divTelefonoContacto`).show();
+//         $(`#divInterno`).show();
+//         $(`#divExterno`).hide();
+//         $(`#radio-uno`).prop("checked", true);
+//         $(`#radio-dos`).prop("checked", false);
+//         $(`#telefono_contacto`).prop("disabled", true);
+//         $(`#correo_contacto`).prop("disabled", true);
+//     } else {
+//         $(`#divRadios`).hide();
+//         $(`#divTelefonoContacto`).hide();
+//         $(`#divInterno`).hide();
+//         $(`#divExterno`).hide();
+//         $(`#radio-uno`).prop("checked", true);
+//         $(`#radio-dos`).prop("checked", false);
 
-    }
-}
+//     }
+// }
 
-document.querySelectorAll('input[name="radio-usuario"]').forEach((elem) => {
+// document.querySelectorAll('input[name="radio-usuario"]').forEach((elem) => {
+//     elem.addEventListener("change", function () {
+//         if (this.checked) {
+//             $(`#contacto_externo`).val('');
+//             $(`#persona_contacto`).val(0);
+//             $(`#persona_contacto`).selectpicker('refresh');
+//             $(`#telefono_contacto`).val('');
+//             $(`#correo_contacto`).val('');
+//             if (this.value === "1") {
+//                 // Acción para Usuario Interno
+//                 console.log("Usuario Interno seleccionado");
+//                 $(`#divInterno`).show();
+//                 $(`#divExterno`).hide();
+//                 $(`#telefono_contacto`).prop("disabled", true);
+//                 $(`#correo_contacto`).prop("disabled", true);
+//             } else if (this.value === "0") {
+//                 // Acción para Usuario Externo
+//                 console.log("Usuario Externo seleccionado");
+//                 $(`#divInterno`).hide();
+//                 $(`#divExterno`).show();
+
+//                 $(`#telefono_contacto`).val('');
+//                 $(`#correo_contacto`).val('');
+//                 $(`#telefono_contacto`).prop("disabled", false);
+//                 $(`#correo_contacto`).prop("disabled", false);
+//             }
+//         }
+//     });
+// });
+
+document.querySelectorAll('input[name="tiposolicitante"]').forEach((elem) => {
     elem.addEventListener("change", function () {
         if (this.checked) {
-            $(`#contacto_externo`).val('');
-            $(`#persona_contacto`).val(0);
-            $(`#persona_contacto`).selectpicker('refresh');
-            $(`#telefono_contacto`).val('');
-            $(`#correo_contacto`).val('');
+            //        $(`#contacto_externo`).val('');
+            //      $(`#persona_contacto`).val(0);
+            //    $(`#persona_contacto`).selectpicker('refresh');
+            //   $(`#telefono_contacto`).val('');
+            //s  $(`#correo_contacto`).val('');
             if (this.value === "1") {
                 // Acción para Usuario Interno
                 console.log("Usuario Interno seleccionado");
-                $(`#divInterno`).show();
-                $(`#divExterno`).hide();
-                $(`#telefono_contacto`).prop("disabled", true);
-                $(`#correo_contacto`).prop("disabled", true);
+                $(`#divInterno`).hide();
+                $(`#divTelefonoContacto`).hide();
+                //     $(`#telefono_contacto`).prop("disabled", true);
+                //   $(`#correo_contacto`).prop("disabled", true);
             } else if (this.value === "0") {
                 // Acción para Usuario Externo
                 console.log("Usuario Externo seleccionado");
-                $(`#divInterno`).hide();
-                $(`#divExterno`).show();
+                $(`#divInterno`).show();
+                $(`#divTelefonoContacto`).show();
+                   $(`#persona_contacto`).val(0);
+                $(`#persona_contacto`).selectpicker('refresh');
 
                 $(`#telefono_contacto`).val('');
                 $(`#correo_contacto`).val('');
-                $(`#telefono_contacto`).prop("disabled", false);
-                $(`#correo_contacto`).prop("disabled", false);
+                $(`#telefono_contacto`).prop("disabled", true);
+                $(`#correo_contacto`).prop("disabled", true);
             }
         }
     });

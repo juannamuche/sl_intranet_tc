@@ -392,17 +392,24 @@ if (!isset($_SESSION["persona_id"])) {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12 col-lg-12 mb-3">
-                                        <label for="tiposolicitante" class="form-label"><strong>¿Para quien es el soporte?</strong></label>
-                                        <select class="form-control form-select selectpicker" id="tiposolicitante" name="tiposolicitante" required onchange="tipoSolicitante()">
-                                            <option value="0" selected disabled>Seleccione tipo de solicitud</option>
-                                            <option value="1">Propio</option>
-                                            <option value="2">Otro</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row" id="divRadios">
+                            <div class="row">
+                            <div class="col-12 col-lg-12 mb-3">
+                                <label for="tiposolicitante" class="form-label"><strong>¿Para quien es el soporte?</strong></label>
+                                <div class="switch-field col-12 col-md-4">
+                                <input type="radio" id="radio-a" name="tiposolicitante" value="1" checked>
+                                <label for="radio-a">Para mi</label>
+
+                                <input type="radio" id="radio-b" name="tiposolicitante" value="0">
+                                <label for="radio-b">Para otra persona</label>
+                            </div>
+                                <!-- <select class="form-control form-select selectpicker" id="tiposolicitante" name="tiposolicitante" required onchange="tipoSolicitante()">
+                                    <option value="0" selected disabled>Seleccione tipo de solicitud</option>
+                                    <option value="1">Propio</option>
+                                    <option value="2">Otro</option>
+                                </select> -->
+                            </div>
+                        </div>
+                                <!-- <div class="row" id="divRadios">
                                     <div class="switch-field col-12 col-md-4">
                                         <input type="radio" id="radio-uno" name="radio-usuario" value="1" checked>
                                         <label for="radio-uno">Usuario Interno</label>
@@ -411,7 +418,7 @@ if (!isset($_SESSION["persona_id"])) {
                                         <label for="radio-dos">Usuario Externo</label>
                                     </div>
 
-                                </div>
+                                </div> -->
                                 <div class="row" id="divInterno">
                                     <div class="col-12 col-lg-12 mb-3">
                                         <label for="persona_contacto" class="form-label"><strong>Persona a contactar:(*)</strong></label>
@@ -420,12 +427,12 @@ if (!isset($_SESSION["persona_id"])) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row" id="divExterno">
+                                <!-- <div class="row" id="divExterno">
                                     <div class="col-12 mb-3">
                                         <label for="contacto_externo" class="form-label"><strong>Persona a contactar:(*)</strong></label>
                                         <input type="text" class="form-control" id="contacto_externo" name="contacto_externo">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row" id="divTelefonoContacto" style="display:none">
                                     <div class="col-6 mb-3">
                                         <label for="telefono_contacto" class="form-label"><strong>Telefono de contacto:(*)</strong></label>
