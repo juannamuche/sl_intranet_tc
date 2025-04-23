@@ -38,7 +38,7 @@ class Soporte
 
 	public function select_catalogo_soporte()
 	{
-		$sql = "SELECT * FROM tb_catalogo WHERE id_catalogo=87 or id_catalogo=121;";
+		$sql = "CALL sp_soporte_catalogos();";
 		return ejecutarConsulta($sql);
 	}
 
@@ -76,7 +76,7 @@ class Soporte
 	public function listar_requerimiento_detalle($id_requerimiento)
 	{
 		$sql = "CALL sp_logistico_requerimiento_detalle_listar($id_requerimiento)";
-	//	var_dump($sql);die();
+		//var_dump($sql);die();
 		return ejecutarConsulta($sql);
 	}
 
