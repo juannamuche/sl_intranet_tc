@@ -50,7 +50,7 @@ class Soporte
 
 	public function insertar_requerimiento($importancia, $id_cu, $id_cc, $id_sede, $origen)
 	{
-		$sql = "CALL sp_requerimiento_insertar('$importancia',$id_cu,$id_cc,$id_sede,$origen);";
+		$sql = "CALL sp_requerimiento_insertar('$importancia',$id_cu,$id_cc,$id_sede,$origen,1);";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 

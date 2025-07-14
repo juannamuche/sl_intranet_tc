@@ -1,13 +1,34 @@
 <?php
 //Activamos el almacenamiento en el buffer
+
+require "../modelo/Uniformes.php";
+
 ob_start();
 session_start();
-
-if (!isset($_SESSION["persona_id"])) {
-    header("Location: login.php");
+$codigo = (isset($_GET['t']) && !empty($_GET['t'])) ? base64_decode($_GET['t']) : '';
+$uniformes = new Uniformes();
+if ($codigo != '') {
+    $rspta = $uniformes->login_uniforme($codigo);
+    if (empty($rspta)) {
+        header("Location: ../vista/login.php");
+        exit();
+    }else{
+        $_SESSION['dni'] = $rspta['dni'];
+        $_SESSION['persona_id'] = $rspta['id_persona'];
+        $_SESSION['persona_nombre'] = $rspta['nombre'];
+        $_SESSION['sexo'] = $rspta['sexo'];
+    }
 } else {
-    $fecha_actual = date('Y-m-d');
-    $fecha_actual_dia_menos = date('Y-m-d', strtotime($fecha_actual . '- 1 days'));
+    if (!isset($_SESSION["persona_id"])) {
+        header("Location: login.php");
+        exit();
+    } else {
+        $fecha_actual = date('Y-m-d');
+        $fecha_actual_dia_menos = date('Y-m-d', strtotime($fecha_actual . '- 1 days'));
+    }
+}
+
+
 
 ?>
 
@@ -138,13 +159,13 @@ if (!isset($_SESSION["persona_id"])) {
         <div class="content-wrapper container-fluid">
             <!-- Main content -->
             <header>
-            <div class="row mt-2">                 
-                        <div class="col-10">
-                            <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
-                        </div>
-                        <div class="col-2 d-none d-md-block">
-                            <span><strong>USUARIO:<strong><?php echo $_SESSION['persona_nombre']?></span>
-                        </div>                  
+                <div class="row mt-2">
+                    <div class="col-10">
+                        <img class="img-fluid mx-auto d-block" src="../images/salus.webp">
+                    </div>
+                    <div class="col-2 d-none d-md-block">
+                        <span><strong>USUARIO:<strong><?php echo $_SESSION['persona_nombre'] ?></span>
+                    </div>
                 </div>
             </header>
 
@@ -421,5 +442,5 @@ if (!isset($_SESSION["persona_id"])) {
 
 <?php
 
-}
+
 ?>
