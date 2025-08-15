@@ -28,8 +28,8 @@ class Uniformes
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-function guardar_uniforme($idpersona,$pecho,$cintura,$hombro,$cuerpo,$manga,$cintura_pantalon,$cadera,$muslo,$piernas,$calzado,$casaca,$chaleco,$ubicacion,$envio,$nombre,$celular,$dni,$tipo){
-	$sql="CALL sp_uniforme_grabar($idpersona,'$pecho','$cintura','$hombro','$cuerpo','$manga','$cintura_pantalon','$cadera','$muslo','$piernas','$calzado','$casaca','$chaleco','$ubicacion','$envio','$nombre','$celular','$dni',$tipo)";
+function guardar_uniforme($idpersona,$pecho,$cintura,$hombro,$cuerpo,$manga,$cintura_pantalon,$cadera,$muslo,$piernas,$calzado,$casaca,$chaleco,$ubicacion,$envio,$nombre,$celular,$dni,$tipo,$lentes){
+	$sql="CALL sp_uniforme_grabar($idpersona,'$pecho','$cintura','$hombro','$cuerpo','$manga','$cintura_pantalon','$cadera','$muslo','$piernas','$calzado','$casaca','$chaleco','$ubicacion','$envio','$nombre','$celular','$dni',$tipo,$lentes)";
 	//var_dump($sql);die();
 	return ejecutarConsultaSimpleFila($sql);
 }

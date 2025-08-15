@@ -13,6 +13,11 @@ session_destroy();
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <meta property="al:android:package" content="com.saluslaboris.app" />
+    <meta property="al:android:app_name" content="saluslaboris" />
+
+
     <link rel="apple-touch-icon" href="../images/favicon.png">
     <link rel="shortcut icon" href="../images/favicon.png">
     <link rel="stylesheet" href="../assets/css/bootstrap@4.1.3.min.css">
@@ -54,6 +59,7 @@ session_destroy();
         </div>
 
     </div>
+
 
     <script src="../assets/js/bootstrap@4.1.3.min.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
