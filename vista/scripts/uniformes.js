@@ -123,7 +123,6 @@ function mostrar_uniformes_persona() {
                 } else {
                     $('#chklentes').prop('checked', true);
                 }
-
                 $('#ubicacion').val(data.datos.lugar_recojo);
                 $('#datos').val(data.datos.tipo_envio);
                 $('#nombres').val(data.datos.nombre_contacto);
